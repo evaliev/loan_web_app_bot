@@ -2,6 +2,7 @@ import { useContext, useReducer } from 'react';
 
 import { DebugBar } from './components/DebugBar';
 import { features, FeaturesType, isFeatureActive } from './features';
+import { DataPage } from './pages/DataPage';
 
 import { TermPage } from './pages/TermPage';
 import { PageStatuses } from './pages/types';
@@ -17,7 +18,7 @@ const App = () => {
       case PageStatuses.TERM_PAGE:
         return <TermPage />;
       case PageStatuses.DATA_PAGE:
-        return <h1>hello</h1>;
+        return <DataPage />;
       default:
         return <TermPage />;
     }
