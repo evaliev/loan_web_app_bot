@@ -11,7 +11,7 @@ export const DetailLine: FC<Props> = ({ label, value }) => {
   return (
     <div className={styles.container}>
       <span className={styles.label}>{label}</span>
-      <span>{value}</span>
+      <span className={styles.value}>{value}</span>
     </div>
   );
 };

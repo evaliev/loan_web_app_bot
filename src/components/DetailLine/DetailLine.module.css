@@ -6,6 +6,10 @@
 .label {
   font-size: 14px;
   line-height: 22px;
-  font-weight: 400;
   color: #8a8a8e;
+}
+
+.value {
+  font-size: 14px;
+  line-height: 22px;
 }
