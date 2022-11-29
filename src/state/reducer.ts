@@ -32,6 +32,11 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         monthlyPayment: state.monthlyPayment - 100,
       };
+    case ActionTypes.CHANGE_STATUS:
+      return {
+        ...state,
+        status: action.payload,
+      };
     default:
       return state;
   }
