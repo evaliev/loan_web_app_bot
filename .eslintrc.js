@@ -6,52 +6,52 @@ module.exports = {
     jest: true,
   },
   extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:import/typescript",
-    "prettier",
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:import/typescript',
+    'prettier',
   ],
   settings: {
-    "import/resolver": {
+    'import/resolver': {
       typescript: {
-        project: ["./tsconfig.json"],
+        project: ['./tsconfig.json'],
       },
     },
   },
   overrides: [],
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   },
-  plugins: ["react", "@typescript-eslint", "import", "prettier"],
+  plugins: ['react', '@typescript-eslint', 'import', 'prettier'],
   rules: {
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off",
-    "react/jsx-filename-extension": [
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-filename-extension': [
       1,
-      { extensions: [".js", ".jsx", ".ts", ".tsx"] },
+      { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
-    "import/order": [
-      "error",
+    'import/order': [
+      'error',
       {
-        "newlines-between": "always-and-inside-groups",
+        'newlines-between': 'always-and-inside-groups',
         pathGroups: [
           {
-            pattern: "@/**",
-            group: "internal",
-            position: "after",
+            pattern: '@/**',
+            group: 'internal',
+            position: 'after',
           },
         ],
         groups: [
-          ["builtin", "external"],
-          "internal",
-          ["parent", "sibling", "index", "type", "unknown"],
-          "object",
+          ['builtin', 'external'],
+          'internal',
+          ['parent', 'sibling', 'index', 'type', 'unknown'],
+          'object',
         ],
       },
     ],
-    "import/no-duplicates": ["error", { considerQueryString: true }],
+    'import/no-duplicates': ['error', { considerQueryString: true }],
   },
 };
