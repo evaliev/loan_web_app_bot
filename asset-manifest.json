@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/loan_web_app_bot/static/css/main.8c3bc6f6.css",
-    "main.js": "/loan_web_app_bot/static/js/main.2fe435f3.js",
+    "main.css": "/loan_web_app_bot/static/css/main.69c02d1c.css",
+    "main.js": "/loan_web_app_bot/static/js/main.c98929b9.js",
     "static/js/787.42f1faf2.chunk.js": "/loan_web_app_bot/static/js/787.42f1faf2.chunk.js",
     "static/media/DocsIcon.svg": "/loan_web_app_bot/static/media/DocsIcon.33c76311bae10619ff3a7cd04b540dde.svg",
     "index.html": "/loan_web_app_bot/index.html",
-    "main.8c3bc6f6.css.map": "/loan_web_app_bot/static/css/main.8c3bc6f6.css.map",
-    "main.2fe435f3.js.map": "/loan_web_app_bot/static/js/main.2fe435f3.js.map",
+    "main.69c02d1c.css.map": "/loan_web_app_bot/static/css/main.69c02d1c.css.map",
+    "main.c98929b9.js.map": "/loan_web_app_bot/static/js/main.c98929b9.js.map",
     "787.42f1faf2.chunk.js.map": "/loan_web_app_bot/static/js/787.42f1faf2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8c3bc6f6.css",
-    "static/js/main.2fe435f3.js"
+    "static/css/main.69c02d1c.css",
+    "static/js/main.c98929b9.js"
   ]
 }
