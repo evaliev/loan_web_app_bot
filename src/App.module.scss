@@ -1,6 +1,7 @@
 $horizontal_padding: 16px;
-$vertical_padding: 8px;
+$vertical_padding: 24px;
 $grey_text: rgba(60, 60, 67, 0.6);
+$light_blue: #0f77f0;
 
 .app {
   width: calc(100% - 2 * $horizontal_padding);
