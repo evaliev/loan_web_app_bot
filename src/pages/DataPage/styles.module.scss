@@ -1,8 +1,4 @@
-.page {
-  padding: 24px 16px;
-  max-width: 600px;
-  margin: 0 auto;
-}
+@import '../../App.module.scss';
 
 .card {
   padding: 16px 16px 28px 16px;
@@ -39,11 +35,13 @@
   line-height: 22px;
 }
 
-.detailsList > *:not(:last-child) {
-  margin-bottom: 6px;
-}
-.detailsList > :first-child {
-  margin-bottom: 12px;
+.detailsList {
+  & > :not(:last-child) {
+    margin-bottom: 6px;
+  }
+  & > :first-child {
+    margin-bottom: 12px;
+  }
 }
 
 .detailsListHeader {
@@ -51,5 +49,5 @@
   color: #000;
 }
 .detailsListHeaderValue {
-  color: #0f77f0;
+  color: $light_blue;
 }
