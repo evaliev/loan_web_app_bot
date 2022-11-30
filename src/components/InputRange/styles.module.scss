@@ -1,0 +1,48 @@
+@import '../../App.module.scss';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  padding: 7.5px 16px;
+  background-color: white;
+  border-radius: 8px;
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 29px;
+    padding: 2px;
+    background-color: rgba(118, 118, 128, 0.12);
+    border-radius: 8px;
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+    }
+
+    .separator {
+      display: inline-block;
+      height: 12px;
+      width: 1px;
+      background: #8e8e93;
+      mix-blend-mode: normal;
+      opacity: 0.3;
+      border-radius: 0.5px;
+    }
+  }
+}
+
+.label {
+  padding: 0 16px;
+  font-size: 12px;
+  line-height: 16px;
+  color: $grey_text;
+}

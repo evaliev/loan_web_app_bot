@@ -4,12 +4,13 @@ import { TermPage } from './pages/TermPage';
 import { ContextApp } from './state/context';
 import { initialState } from './state/initialState';
 import { reducer } from './state/reducer';
+import styles from './App.module.scss';
 
 const App = () => {
   return (
-    <>
+    <div className={styles.app}>
       <TermPage />
-    </>
+    </div>
   );
 };
 

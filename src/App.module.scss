@@ -1,0 +1,12 @@
+$horizontal_padding: 16px;
+$vertical_padding: 8px;
+$grey_text: rgba(60, 60, 67, 0.6);
+
+.app {
+  width: 345px;
+  // width: calc(100% - 2 * $horizontal_padding);
+  height: calc(100% - 2 * $vertical_padding);
+  padding: $vertical_padding $horizontal_padding;
+  font-size: 17px;
+  line-height: 22px;
+}
