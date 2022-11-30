@@ -12,6 +12,11 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         amount: state.amount - 100,
       };
+    case ActionTypes.AMOUNT_CHANGE:
+      return {
+        ...state,
+        amount: action.payload,
+      };
     case ActionTypes.TERM_INCREASE:
       return {
         ...state,
@@ -22,6 +27,11 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         term: state.term - 1,
       };
+    case ActionTypes.TERM_CHANGE:
+      return {
+        ...state,
+        term: action.payload,
+      };
     case ActionTypes.MONTHLY_PAYMENT_INCREASE:
       return {
         ...state,
@@ -31,6 +41,11 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         monthlyPayment: state.monthlyPayment - 100,
+      };
+    case ActionTypes.MONTHLY_PAYMENT_CHANGE:
+      return {
+        ...state,
+        monthlyPayment: action.payload,
       };
     case ActionTypes.CHANGE_STATUS:
       return {

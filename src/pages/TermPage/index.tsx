@@ -29,6 +29,13 @@ export const TermPage = () => {
     dispatch({ type: ActionTypes.AMOUNT_DECREASE });
   }, [dispatch]);
 
+  const changeAmount = useCallback(
+    (value: number) => {
+      dispatch({ type: ActionTypes.AMOUNT_CHANGE, payload: value });
+    },
+    [dispatch],
+  );
+
   const increaseTerm = useCallback(() => {
     dispatch({ type: ActionTypes.TERM_INCREASE });
   }, [dispatch]);
@@ -37,6 +44,13 @@ export const TermPage = () => {
     dispatch({ type: ActionTypes.TERM_DECREASE });
   }, [dispatch]);
 
+  const changeTerm = useCallback(
+    (value: number) => {
+      dispatch({ type: ActionTypes.TERM_CHANGE, payload: value });
+    },
+    [dispatch],
+  );
+
   const increaseMonthlyPayment = useCallback(() => {
     dispatch({ type: ActionTypes.MONTHLY_PAYMENT_INCREASE });
   }, [dispatch]);
@@ -44,6 +58,13 @@ export const TermPage = () => {
   const decreaseMonthlyPayment = useCallback(() => {
     dispatch({ type: ActionTypes.MONTHLY_PAYMENT_DECREASE });
   }, [dispatch]);
+
+  const changeMonthlyPayment = useCallback(
+    (value: number) => {
+      dispatch({ type: ActionTypes.MONTHLY_PAYMENT_CHANGE, payload: value });
+    },
+    [dispatch],
+  );
 
   return (
     <div>
@@ -58,18 +79,21 @@ export const TermPage = () => {
           label="Сумма — до 5 млн ₽"
           increaseHandler={increaseAmount}
           decreaseHandler={decreaseAmount}
+          changeHandler={changeAmount}
         />
         <InputRange
           value={state.term}
           label="Срок — до 36 месяцев"
           increaseHandler={increaseTerm}
           decreaseHandler={decreaseTerm}
+          changeHandler={changeTerm}
         />
         <InputRange
           value={state.monthlyPayment}
           label="Ежемесячный платеж, ₽"
           increaseHandler={increaseMonthlyPayment}
           decreaseHandler={decreaseMonthlyPayment}
+          changeHandler={changeMonthlyPayment}
         />
       </div>
       <div className={styles.footer}>
