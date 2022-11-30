@@ -1,17 +1,60 @@
 @import '../../App.module.scss';
+$button_vertical_padding: 16px;
+
+.whiteBox {
+  background: #ffffff;
+  border-radius: $default_border_radius;
+  min-height: 10px;
+}
 
 .card {
+  @extend .whiteBox;
   padding: 16px 16px 28px 16px;
-  background: #ffffff;
-  border-radius: 10px;
-  min-height: 10px;
+}
+
+.buttonGroup {
+  @extend .whiteBox;
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+
+  & > :first-child {
+    border-radius: $default_border_radius $default_border_radius 0 0;
+  }
+  & > :last-child {
+    border-radius: 0 0 $default_border_radius $default_border_radius;
+  }
+
+  & > :not(:last-child) > * {
+    border-bottom: 1px solid $border_color;
+  }
+}
+
+.dataButton {
+  position: relative;
+  padding: 0 0 0 16px;
+  text-align: left;
+  font-size: 17px;
+  background: white;
+  border: 0;
+
+  &:hover {
+    background: $border_color;
+  }
+}
+
+.buttonInner {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 16px 11px 0;
 }
 
 .cardHeader {
   display: flex;
   padding-bottom: 18px;
   margin-bottom: 20px;
-  border-bottom: 1px solid rgba(24, 24, 24, 0.24);
+  border-bottom: $default_border_bottom;
 }
 .iconContainer {
   margin-right: 24px;
@@ -50,4 +93,9 @@
 }
 .detailsListHeaderValue {
   color: $light_blue;
+
+  &:hover {
+    border-bottom: 1px solid $light_blue;
+    color: lighten($light_blue, 10%);
+  }
 }
