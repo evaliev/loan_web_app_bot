@@ -5,16 +5,25 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 4px;
-  padding: 7.5px 16px;
+  padding: 6.5px 15px;
   background-color: white;
+  border: 1px solid white;
   border-radius: 8px;
+  transition: border-color 0.3s;
+
+  input {
+    font-size: 17px;
+    line-height: 22px;
+    padding: 0;
+    flex-grow: 1;
+    caret-color: $light_blue;
+  }
 
   .buttons {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 29px;
-    padding: 2px;
     background-color: rgba(118, 118, 128, 0.12);
     border-radius: 8px;
 
@@ -22,11 +31,19 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100%;
       width: 50px;
-      background-color: 'transparent';
+      background-color: transparent;
       border-radius: 8px;
       border: none;
       font-weight: 600;
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.8);
+      background-color: rgba(118, 118, 128, 0.5);
     }
 
     .separator {
@@ -39,6 +56,10 @@
       border-radius: 0.5px;
     }
   }
+}
+
+.container_focused {
+  border-color: $light_blue;
 }
 
 .label {
