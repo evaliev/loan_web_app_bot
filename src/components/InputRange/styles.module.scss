@@ -16,6 +16,7 @@
     line-height: 22px;
     padding: 0;
     flex-grow: 1;
+    caret-color: $light_blue;
   }
 
   .buttons {
@@ -58,7 +59,7 @@
 }
 
 .container_focused {
-  border-color: #0f77f0;
+  border-color: $light_blue;
 }
 
 .label {
