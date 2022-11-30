@@ -1,13 +1,25 @@
 import { useCallback, useContext } from 'react';
 
+import styles from './styles.module.scss';
 import InputRange from '../../components/InputRange';
 import { LogoIcon } from '../../icons';
 import { ContextApp } from '../../state/context';
 import { ActionTypes } from '../../state/types';
-import styles from './styles.module.scss';
+import { useTelegramBtns } from '../../hooks';
+import { PageStatuses } from '../types';
 
 export const TermPage = () => {
   const { state, dispatch } = useContext(ContextApp);
+
+  useTelegramBtns({
+    mainBtnTitle: 'Далее',
+    mainBtnHandler: () => {
+      dispatch({
+        type: ActionTypes.CHANGE_STATUS,
+        payload: PageStatuses.DATA_PAGE,
+      });
+    },
+  });
 
   const increaseAmount = useCallback(() => {
     dispatch({ type: ActionTypes.AMOUNT_INCREASE });
@@ -38,7 +50,7 @@ export const TermPage = () => {
       <div className={styles.header}>
         <LogoIcon />
         <p className={styles.title}>Экспресс-кредит для бизнеса</p>
-        <p className={styles.subTitle}>Банк XXX (ПАО)</p>
+        <p className={styles.subTitle}>Банк KEK (LOL)</p>
       </div>
       <div className={styles.inputs}>
         <InputRange

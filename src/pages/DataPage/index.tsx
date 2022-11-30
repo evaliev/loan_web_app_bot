@@ -1,7 +1,29 @@
-import { DetailLine } from '../../components/DetailLine';
+import { useContext } from 'react';
+
 import styles from './DataPage.module.css';
+import { DetailLine } from '../../components/DetailLine';
 import { ReactComponent as DocsIcon } from './DocsIcon.svg';
+import { useTelegramBtns } from '../../hooks';
+import { ActionTypes } from '../../state/types';
+import { PageStatuses } from '../types';
+import { ContextApp } from '../../state/context';
+
 export const DataPage = () => {
+  const { dispatch } = useContext(ContextApp);
+
+  useTelegramBtns({
+    mainBtnTitle: 'Далее',
+    /*eslint-disable-next-line */
+    mainBtnHandler: () => {},
+    hasBackBtn: true,
+    backBtnHandler: () => {
+      dispatch({
+        type: ActionTypes.CHANGE_STATUS,
+        payload: PageStatuses.TERM_PAGE,
+      });
+    },
+  });
+
   return (
     <div className={styles.page}>
       <div className={styles.card}>
