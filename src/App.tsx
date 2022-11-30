@@ -24,7 +24,7 @@ const App = () => {
         return <TermPage />;
     }
   };
-  return <div className={styles.app}>renderPage()</div>;
+  return <div className={styles.app}>{renderPage()}</div>;
 };
 
 const WrappedApp = () => {
