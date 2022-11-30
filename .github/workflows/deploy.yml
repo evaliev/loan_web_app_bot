@@ -3,8 +3,6 @@ name: CI/CD
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
     
 env:
   CI: false
@@ -27,12 +25,15 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-
-    - name: Install
-      run: npm ci
+        
+    - name: Install yarn
+      run: npm install yarn -g
+      
+    - name: Install packages
+      run: yarn install
 
     - name: Build
-      run: npm run build
+      run: yarn run build
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4

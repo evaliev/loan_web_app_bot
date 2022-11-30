@@ -1,0 +1,55 @@
+.page {
+  padding: 24px 16px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.card {
+  padding: 16px 16px 28px 16px;
+  background: #ffffff;
+  border-radius: 10px;
+  min-height: 10px;
+}
+
+.cardHeader {
+  display: flex;
+  padding-bottom: 18px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(24, 24, 24, 0.24);
+}
+.iconContainer {
+  margin-right: 24px;
+}
+
+.titlesContainer {
+  margin-top: 4px;
+}
+
+.cardTitle {
+  display: block;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.cardSubtitle {
+  display: inline-block;
+  color: #86878c;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.detailsList > *:not(:last-child) {
+  margin-bottom: 6px;
+}
+.detailsList > :first-child {
+  margin-bottom: 12px;
+}
+
+.detailsListHeader {
+  font-weight: 500;
+  color: #000;
+}
+.detailsListHeaderValue {
+  color: #0f77f0;
+}
