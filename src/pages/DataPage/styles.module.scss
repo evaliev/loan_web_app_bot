@@ -25,36 +25,59 @@ $button_vertical_padding: 16px;
     border-radius: 0 0 $default_border_radius $default_border_radius;
   }
 
-  & > :not(:last-child) > * {
-    border-bottom: 1px solid $border_color;
+  & > :not(:first-child)::after {
+    content: '';
+    height: 1px;
+    width: calc(100% - $button_vertical_padding);
+    position: absolute;
+    top: 0;
+    background-color: $border_color;
+  }
+
+  & > :hover,
+  & > :hover + button {
+    &::after {
+      background-color: transparent;
+    }
   }
 }
 
 .dataButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: relative;
-  padding: 0 0 0 16px;
+  padding: 11px 16px;
   text-align: left;
   font-size: 17px;
   background: white;
   border: 0;
 
   &:hover {
-    background: $border_color;
-  }
-}
+    background: #e5e5e9;
+    transition: background-color 0.3s;
 
-.buttonInner {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 11px 16px 11px 0;
+    path {
+      fill: #b2b2b8;
+      transition: fill 0.3s;
+    }
+  }
 }
 
 .cardHeader {
   display: flex;
+  position: relative;
   padding-bottom: 18px;
   margin-bottom: 20px;
-  border-bottom: $default_border_bottom;
+
+  &::after {
+    content: '';
+    height: 1px;
+    width: calc(100% + $button_vertical_padding);
+    position: absolute;
+    bottom: 0;
+    background-color: $border_color;
+  }
 }
 .iconContainer {
   margin-right: 24px;

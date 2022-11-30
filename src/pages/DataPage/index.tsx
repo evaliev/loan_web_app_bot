@@ -72,19 +72,15 @@ export const DataPage = () => {
           className={styles.dataButton}
           onClick={() => console.log('Данные ИП')}
         >
-          <div className={styles.buttonInner}>
-            <span>Данные ИП</span>
-            <ArrowIcon />
-          </div>
+          <span>Данные ИП</span>
+          <ArrowIcon />
         </button>
         <button
           className={styles.dataButton}
           onClick={() => console.log('Данные собственника')}
         >
-          <div className={styles.buttonInner}>
-            <span>Данные собственника</span>
-            <ArrowIcon />
-          </div>
+          <span>Данные собственника</span>
+          <ArrowIcon />
         </button>
       </div>
     </>
