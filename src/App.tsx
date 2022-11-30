@@ -16,6 +16,7 @@ const App = () => {
 
   useEffect(() => {
     telegram.ready();
+    telegram.expand();
   }, []);
 
   const renderPage = () => {
