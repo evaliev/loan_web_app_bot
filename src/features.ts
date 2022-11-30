@@ -7,4 +7,6 @@ export const isFeatureActive = (
   name: string,
 ): boolean => features.includes(name);
 
-export const features: FeaturesType[] = [FeaturesType.DEBUG_BAR];
+export const features: FeaturesType[] = [
+  // FeaturesType.DEBUG_BAR
+];

@@ -1,18 +1,22 @@
-import { useContext, useReducer } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 
+import styles from './App.module.scss';
 import { DebugBar } from './components/DebugBar';
 import { features, FeaturesType, isFeatureActive } from './features';
 import { DataPage } from './pages/DataPage';
-
 import { TermPage } from './pages/TermPage';
 import { PageStatuses } from './pages/types';
 import { ContextApp } from './state/context';
 import { initialState } from './state/initialState';
 import { reducer } from './state/reducer';
-import styles from './App.module.scss';
+import { telegram } from './telegram';
 
 const App = () => {
   const { state } = useContext(ContextApp);
+
+  useEffect(() => {
+    telegram.ready();
+  }, []);
 
   const renderPage = () => {
     switch (state.status) {
