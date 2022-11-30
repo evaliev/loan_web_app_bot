@@ -1,12 +1,11 @@
 body {
   margin: 0;
-  font-family: -apple-system, system-ui, BlinkMacSystemFont;
+  font-family: -apple-system, system-ui, 'SF Pro Text', BlinkMacSystemFont;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f4f7fa;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  margin: 0;
 }

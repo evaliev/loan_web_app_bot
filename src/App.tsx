@@ -9,6 +9,7 @@ import { PageStatuses } from './pages/types';
 import { ContextApp } from './state/context';
 import { initialState } from './state/initialState';
 import { reducer } from './state/reducer';
+import styles from './App.module.scss';
 
 const App = () => {
   const { state } = useContext(ContextApp);
@@ -23,7 +24,7 @@ const App = () => {
         return <TermPage />;
     }
   };
-  return renderPage();
+  return <div className={styles.app}>{renderPage()}</div>;
 };
 
 const WrappedApp = () => {

@@ -1,0 +1,50 @@
+@import '../../App.module.scss';
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .title {
+    margin-top: 12px;
+    font-weight: 500;
+  }
+
+  .subTitle {
+    font-size: 12px;
+    line-height: 22px;
+    color: $grey_text;
+  }
+}
+
+.inputs {
+  margin: 32px 0 40px;
+
+  & > div {
+    margin-bottom: 16px;
+  }
+
+  & > div:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.footer {
+  padding: 0 16px;
+
+  .title {
+    font-size: 14px;
+    line-height: 16px;
+    margin-bottom: 8px;
+  }
+
+  .subTitle {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  a {
+    text-decoration: none;
+    color: #0f77f0;
+  }
+}
