@@ -1,9 +1,14 @@
 import { PageStatuses } from '../pages/types';
 
 export interface State {
-  amount: number;
-  term: number;
-  monthlyPayment: number;
+  conditions: {
+    isFetched: boolean;
+    isLoading: boolean;
+    amount: number;
+    term: number;
+    monthlyPayment: number;
+    rate: number;
+  };
   status: PageStatuses;
 }
 
@@ -14,6 +19,8 @@ export interface Action {
 }
 
 export enum ActionTypes {
+  CHANGE_LOADING_CONDIONS_STATUS = 'CHANGE_LOADING_CONDIONS_STATUS',
+  SET_CONDITIONS = 'SET_CONDITIONS',
   AMOUNT_INCREASE = 'AMOUNT_INCREASE',
   AMOUNT_DECREASE = 'AMOUNT_DECREASE',
   AMOUNT_CHANGE = 'AMOUNT_CHANGE',

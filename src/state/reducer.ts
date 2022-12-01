@@ -2,50 +2,93 @@ import { Action, ActionTypes, State } from './types';
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
+    case ActionTypes.CHANGE_LOADING_CONDIONS_STATUS:
+      return {
+        ...state,
+        conditions: {
+          ...state.conditions,
+          isLoading: action.payload,
+        },
+      };
+    case ActionTypes.SET_CONDITIONS:
+      return {
+        ...state,
+        conditions: {
+          isFetched: true,
+          ...action.payload,
+        },
+      };
     case ActionTypes.AMOUNT_INCREASE:
       return {
         ...state,
-        amount: state.amount + 100,
+        conditions: {
+          ...state.conditions,
+          amount: state.conditions.amount + 100,
+        },
       };
     case ActionTypes.AMOUNT_DECREASE:
       return {
         ...state,
-        amount: state.amount - 100,
+        conditions: {
+          ...state.conditions,
+          amount: state.conditions.amount - 100,
+        },
       };
     case ActionTypes.AMOUNT_CHANGE:
       return {
         ...state,
-        amount: action.payload,
+        conditions: {
+          ...state.conditions,
+          amount: action.payload,
+        },
       };
     case ActionTypes.TERM_INCREASE:
       return {
         ...state,
-        term: state.term + 1,
+        conditions: {
+          ...state.conditions,
+          term: state.conditions.term + 1,
+        },
       };
     case ActionTypes.TERM_DECREASE:
       return {
         ...state,
-        term: state.term - 1,
+        conditions: {
+          ...state.conditions,
+          term: state.conditions.term - 1,
+        },
       };
     case ActionTypes.TERM_CHANGE:
       return {
         ...state,
-        term: action.payload,
+        conditions: {
+          ...state.conditions,
+          term: action.payload,
+        },
       };
     case ActionTypes.MONTHLY_PAYMENT_INCREASE:
       return {
         ...state,
-        monthlyPayment: state.monthlyPayment + 100,
+        conditions: {
+          ...state.conditions,
+          monthlyPayment: state.conditions.monthlyPayment + 100,
+        },
       };
     case ActionTypes.MONTHLY_PAYMENT_DECREASE:
       return {
         ...state,
-        monthlyPayment: state.monthlyPayment - 100,
+        conditions: {
+          ...state.conditions,
+          monthlyPayment: state.conditions.monthlyPayment - 100,
+        },
       };
     case ActionTypes.MONTHLY_PAYMENT_CHANGE:
       return {
         ...state,
-        monthlyPayment: action.payload,
+        conditions: {
+          ...state.conditions,
+          monthlyPayment: action.payload,
+        },
       };
     case ActionTypes.CHANGE_STATUS:
       return {
