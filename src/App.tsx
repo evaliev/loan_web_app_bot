@@ -4,6 +4,7 @@ import styles from './App.module.scss';
 import { DebugBar } from './components/DebugBar';
 import { features, FeaturesType, isFeatureActive } from './features';
 import { DataPage } from './pages/DataPage';
+import { SuccessPage } from './pages/SuccessPage';
 import { TermPage } from './pages/TermPage';
 import { PageStatuses } from './pages/types';
 import { ContextApp } from './state/context';
@@ -25,6 +26,8 @@ const App = () => {
         return <TermPage />;
       case PageStatuses.DATA_PAGE:
         return <DataPage />;
+      case PageStatuses.SUCCESS_PAGE:
+        return <SuccessPage />;
       default:
         return <TermPage />;
     }

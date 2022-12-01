@@ -20,9 +20,13 @@ export const DataPage = () => {
   }, []);
 
   useTelegramBtns({
-    mainBtnTitle: 'Далее',
-    /*eslint-disable-next-line */
-    mainBtnHandler: () => {},
+    mainBtnTitle: 'Отправить заявку',
+    mainBtnHandler: () => {
+      dispatch({
+        type: ActionTypes.CHANGE_STATUS,
+        payload: PageStatuses.SUCCESS_PAGE,
+      });
+    },
     hasBackBtn: true,
     backBtnHandler: () => {
       dispatch({
