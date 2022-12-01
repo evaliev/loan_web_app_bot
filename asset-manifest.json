@@ -1,17 +1,18 @@
 {
   "files": {
-    "main.css": "/loan_web_app_bot/static/css/main.29b4afec.css",
-    "main.js": "/loan_web_app_bot/static/js/main.5b0dd856.js",
+    "main.css": "/loan_web_app_bot/static/css/main.55a1ce9d.css",
+    "main.js": "/loan_web_app_bot/static/js/main.9b22d93f.js",
     "static/js/787.42f1faf2.chunk.js": "/loan_web_app_bot/static/js/787.42f1faf2.chunk.js",
     "static/media/DocsIcon.svg": "/loan_web_app_bot/static/media/DocsIcon.33c76311bae10619ff3a7cd04b540dde.svg",
     "static/media/Arrow.svg": "/loan_web_app_bot/static/media/Arrow.85a95975eb294d0cda220a64909e0f48.svg",
+    "static/media/CheckCircle.svg": "/loan_web_app_bot/static/media/CheckCircle.574ee2b9dc97d004227568bc7095c2e6.svg",
     "index.html": "/loan_web_app_bot/index.html",
-    "main.29b4afec.css.map": "/loan_web_app_bot/static/css/main.29b4afec.css.map",
-    "main.5b0dd856.js.map": "/loan_web_app_bot/static/js/main.5b0dd856.js.map",
+    "main.55a1ce9d.css.map": "/loan_web_app_bot/static/css/main.55a1ce9d.css.map",
+    "main.9b22d93f.js.map": "/loan_web_app_bot/static/js/main.9b22d93f.js.map",
     "787.42f1faf2.chunk.js.map": "/loan_web_app_bot/static/js/787.42f1faf2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.29b4afec.css",
-    "static/js/main.5b0dd856.js"
+    "static/css/main.55a1ce9d.css",
+    "static/js/main.9b22d93f.js"
   ]
 }
