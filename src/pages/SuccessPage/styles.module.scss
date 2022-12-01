@@ -1,0 +1,26 @@
+@import '../../App.module.scss';
+
+.container {
+  display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.title {
+  margin: 20px 0 12px 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 22px;
+}
+.subtitle {
+  font-size: 14px;
+  line-height: 22px;
+  color: $light_grey;
+}
