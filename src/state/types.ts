@@ -1,6 +1,7 @@
 import { PageStatuses } from '../pages/types';
 
 export interface State {
+  INN: number | null;
   amount: number;
   term: number;
   monthlyPayment: number;
@@ -14,6 +15,7 @@ export interface Action {
 }
 
 export enum ActionTypes {
+  CHANGE_INN = 'CHANGE_INN',
   AMOUNT_INCREASE = 'AMOUNT_INCREASE',
   AMOUNT_DECREASE = 'AMOUNT_DECREASE',
   AMOUNT_CHANGE = 'AMOUNT_CHANGE',

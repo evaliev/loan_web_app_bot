@@ -2538,6 +2538,11 @@
   resolved "https://registry.npmjs.org/@xtuc/long/-/long-4.2.2.tgz"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@yandex/smart-captcha@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@yandex/smart-captcha/-/smart-captcha-1.7.2.tgz#3dbe0e440768f86d204be5774bba859e08b21af5"
+  integrity sha512-57V3mGduuhRy4i3t9NTE7e40+f+BdtojQqNrxbjhn7DG/ysHKDC/t/DX3uYFSWf6EJN9NbVXiw8Hvs8+aXOwlQ==
+
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.6"
   resolved "https://registry.npmjs.org/abab/-/abab-2.0.6.tgz"

@@ -2,6 +2,11 @@ import { Action, ActionTypes, State } from './types';
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
+    case ActionTypes.CHANGE_INN:
+      return {
+        ...state,
+        INN: action.payload,
+      };
     case ActionTypes.AMOUNT_INCREASE:
       return {
         ...state,

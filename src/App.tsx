@@ -4,6 +4,7 @@ import styles from './App.module.scss';
 import { DebugBar } from './components/DebugBar';
 import { features, FeaturesType, isFeatureActive } from './features';
 import { DataPage } from './pages/DataPage';
+import { LoginPage } from './pages/LoginPage';
 import { SuccessPage } from './pages/SuccessPage';
 import { TermPage } from './pages/TermPage';
 import { PageStatuses } from './pages/types';
@@ -22,6 +23,8 @@ const App = () => {
 
   const renderPage = () => {
     switch (state.status) {
+      case PageStatuses.LOGIN_PAGE:
+        return <LoginPage />;
       case PageStatuses.TERM_PAGE:
         return <TermPage />;
       case PageStatuses.DATA_PAGE:
@@ -29,7 +32,7 @@ const App = () => {
       case PageStatuses.SUCCESS_PAGE:
         return <SuccessPage />;
       default:
-        return <TermPage />;
+        return <LoginPage />;
     }
   };
   return <div className={styles.app}>{renderPage()}</div>;
