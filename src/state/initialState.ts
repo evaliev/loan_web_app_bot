@@ -6,5 +6,5 @@ export const initialState: State = {
   amount: 100000,
   term: 12,
   monthlyPayment: 3600,
-  status: PageStatuses.LOGIN_PAGE,
+  status: PageStatuses.OWNER_DATA,
 };

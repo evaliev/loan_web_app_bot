@@ -1,7 +1,7 @@
 const { Telegraf } = require('telegraf');
 
 // Изменить на токен своего тестового бота
-const TOKEN = '5574575386:AAEXCjS-cnsXyPvAG5KjJgsq8HSL5r191hI';
+const TOKEN = '5754027180:AAGPOC6wWM2FHvJ4-KVhQHtOpNnqF0fMGOU';
 
 const bot = new Telegraf(TOKEN);
 

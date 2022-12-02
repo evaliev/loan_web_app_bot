@@ -1,0 +1,139 @@
+@import '../../App.module.scss';
+$button_vertical_padding: 16px;
+
+.whiteBox {
+  background: #ffffff;
+  border-radius: $default_border_radius;
+  min-height: 10px;
+}
+
+.cardTitle {
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+  text-transform: uppercase;
+  letter-spacing: -0.408px;
+  color: rgba(60, 60, 67, 0.6);
+
+  margin-bottom: 12px;
+  margin-left: 16px;
+}
+.card {
+  @extend .whiteBox;
+  padding: 8px 0 8px 16px;
+}
+
+.buttonGroup {
+  @extend .whiteBox;
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+
+  & > :first-child {
+    border-radius: $default_border_radius $default_border_radius 0 0;
+  }
+  & > :last-child {
+    border-radius: 0 0 $default_border_radius $default_border_radius;
+  }
+
+  & > :not(:first-child)::after {
+    content: '';
+    height: 1px;
+    width: calc(100% - $button_vertical_padding);
+    position: absolute;
+    top: 0;
+    background-color: $border_color;
+  }
+
+  & > :hover,
+  & > :hover + button {
+    &::after {
+      background-color: transparent;
+    }
+  }
+}
+
+.dataButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 11px 16px;
+  text-align: left;
+  font-size: 17px;
+  background: white;
+  transition: background-color 0.3s;
+  border: 0;
+
+  &::after {
+    transition: background-color 0.3s;
+  }
+
+  &:hover {
+    background: #e5e5e9;
+
+    path {
+      fill: #b2b2b8;
+      transition: fill 0.3s;
+    }
+  }
+}
+
+.cardHeader {
+  display: flex;
+  position: relative;
+  padding-bottom: 18px;
+  margin-bottom: 20px;
+
+  &::after {
+    content: '';
+    height: 1px;
+    width: calc(100% + $button_vertical_padding);
+    position: absolute;
+    bottom: 0;
+    background-color: $border_color;
+  }
+}
+.iconContainer {
+  margin-right: 24px;
+}
+
+.titlesContainer {
+  margin-top: 4px;
+}
+
+.cardTitle {
+  display: block;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.cardSubtitle {
+  display: inline-block;
+  color: $light_grey;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.detailsList {
+  & > :not(:last-child) {
+    margin-bottom: 6px;
+  }
+  & > :first-child {
+    margin-bottom: 12px;
+  }
+}
+
+.detailsListHeader {
+  font-weight: 500;
+  color: #000;
+}
+.detailsListHeaderValue {
+  color: $light_blue;
+
+  &:hover {
+    border-bottom: 1px solid $light_blue;
+    color: lighten($light_blue, 10%);
+  }
+}
