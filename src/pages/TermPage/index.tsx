@@ -4,7 +4,7 @@ import { Button, Dialog, DialogActions } from '@mui/material';
 
 import styles from './styles.module.scss';
 import InputRange from '../../components/InputRange';
-import { LogoIcon } from '../../icons';
+import { DocsIcon } from '../../icons';
 import { ContextApp } from '../../state/context';
 import { ActionTypes } from '../../state/types';
 import { useTelegramBtns } from '../../hooks';
@@ -77,7 +77,7 @@ export const TermPage = () => {
   return (
     <div>
       <div className={styles.header}>
-        <LogoIcon />
+        <DocsIcon width={87} height={70} />
         <p className={styles.title}>Экспресс-кредит для бизнеса</p>
         <p className={styles.subTitle}>Банк KEK (LOL)</p>
       </div>
