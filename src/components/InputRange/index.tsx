@@ -5,16 +5,18 @@ import { MinusIcon, PlusIcon } from '../../icons';
 import styles from './styles.module.scss';
 
 type InputRangeProps = {
-  value: number;
+  value: number | null;
   label: string;
-  increaseHandler: VoidFunction;
-  decreaseHandler: VoidFunction;
+  withControls?: boolean;
+  increaseHandler?: VoidFunction;
+  decreaseHandler?: VoidFunction;
   changeHandler: (value: number) => void;
 };
 
 const InputRange = ({
   value,
   label,
+  withControls = false,
   increaseHandler,
   decreaseHandler,
   changeHandler,
@@ -39,17 +41,19 @@ const InputRange = ({
             setIsFocused(false);
           }}
           type="number"
-          value={value}
+          value={value || undefined}
         />
-        <div className={styles.buttons}>
-          <button className={styles.button} onClick={increaseHandler}>
-            <PlusIcon />
-          </button>
-          <div className={styles.separator} />
-          <button className={styles.button} onClick={decreaseHandler}>
-            <MinusIcon />
-          </button>
-        </div>
+        {withControls && (
+          <div className={styles.buttons}>
+            <button className={styles.button} onClick={increaseHandler}>
+              <PlusIcon />
+            </button>
+            <div className={styles.separator} />
+            <button className={styles.button} onClick={decreaseHandler}>
+              <MinusIcon />
+            </button>
+          </div>
+        )}
       </div>
       <span className={styles.label}>{label}</span>
     </div>

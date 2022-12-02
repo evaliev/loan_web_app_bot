@@ -77,6 +77,7 @@ export const TermPage = () => {
         <InputRange
           value={state.amount}
           label="Сумма — до 5 млн ₽"
+          withControls
           increaseHandler={increaseAmount}
           decreaseHandler={decreaseAmount}
           changeHandler={changeAmount}
@@ -84,6 +85,7 @@ export const TermPage = () => {
         <InputRange
           value={state.term}
           label="Срок — до 36 месяцев"
+          withControls
           increaseHandler={increaseTerm}
           decreaseHandler={decreaseTerm}
           changeHandler={changeTerm}
@@ -91,6 +93,7 @@ export const TermPage = () => {
         <InputRange
           value={state.monthlyPayment}
           label="Ежемесячный платеж, ₽"
+          withControls
           increaseHandler={increaseMonthlyPayment}
           decreaseHandler={decreaseMonthlyPayment}
           changeHandler={changeMonthlyPayment}
