@@ -1,4 +1,6 @@
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useState } from 'react';
+
+import { Button, Dialog, DialogActions } from '@mui/material';
 
 import styles from './styles.module.scss';
 import InputRange from '../../components/InputRange';
@@ -7,9 +9,15 @@ import { ContextApp } from '../../state/context';
 import { ActionTypes } from '../../state/types';
 import { useTelegramBtns } from '../../hooks';
 import { PageStatuses } from '../types';
+import { PaymentSchedule } from '../../components/PaymentSchedule';
 
 export const TermPage = () => {
   const { state, dispatch } = useContext(ContextApp);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
 
   useTelegramBtns({
     mainBtnTitle: 'Далее',
@@ -102,9 +110,15 @@ export const TermPage = () => {
       <div className={styles.footer}>
         <p className={styles.title}>Ставка по кредиту от 11,5 %</p>
         <p className={styles.subTitle}>
-          Предварительный <a href="">график платежей</a>
+          Предварительный <span onClick={handleOpen}>график платежей</span>
         </p>
       </div>
+      <Dialog open={open} onClose={handleClose}>
+        <PaymentSchedule state={state} />
+        <DialogActions>
+          <Button onClick={handleClose}>Закрыть</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
