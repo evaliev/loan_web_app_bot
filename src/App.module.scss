@@ -8,7 +8,9 @@ $default_border_bottom: 1px solid $border_color;
 $default_border_radius: 10px;
 
 .app {
+  margin: 0 auto;
   padding: $vertical_padding $horizontal_padding;
+  max-width: 600px;
   font-size: 17px;
   line-height: 22px;
 }
