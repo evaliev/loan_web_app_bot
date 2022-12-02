@@ -8,9 +8,10 @@ import { useTelegramBtns } from '../../hooks';
 import { ActionTypes } from '../../state/types';
 import { PageStatuses } from '../types';
 import { ContextApp } from '../../state/context';
+import { formatAmountDisplay } from '../../utils';
 
 export const DataPage = () => {
-  const { dispatch } = useContext(ContextApp);
+  const { state, dispatch } = useContext(ContextApp);
 
   const handleClick = useCallback(() => {
     dispatch({
@@ -65,9 +66,15 @@ export const DataPage = () => {
               </span>
             }
           />
-          <DetailLine label={'Сумма'} value={'100 500 ₽'} />
-          <DetailLine label={'Срок'} value={'12 мес'} />
-          <DetailLine label={'Ежемесячный платеж'} value={'126 988 ₽'} />
+          <DetailLine
+            label={'Сумма'}
+            value={`${formatAmountDisplay(state.amount)} ₽`}
+          />
+          <DetailLine label={'Срок'} value={`${state.term} мес`} />
+          <DetailLine
+            label={'Ежемесячный платеж'}
+            value={`${formatAmountDisplay(state.monthlyPayment)} ₽`}
+          />
           <DetailLine label={'Ставка от'} value={'11,5 %'} />
         </div>
       </div>
