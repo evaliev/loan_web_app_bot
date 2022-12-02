@@ -1,6 +1,6 @@
 import { useTelegramBtns } from '../../hooks';
 import { telegram } from '../../telegram';
-import { ReactComponent as CheckCircleIcon } from './CheckCircle.svg';
+import { CheckCircleIcon } from '../../icons';
 import styles from './styles.module.scss';
 
 export const SuccessPage = () => {
