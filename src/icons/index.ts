@@ -4,3 +4,4 @@ export { MinusIcon } from './MinusIcon';
 export { ReactComponent as DocsIcon } from './DocsIcon.svg';
 export { ReactComponent as ArrowIcon } from './ArrowIcon.svg';
 export { ReactComponent as CheckCircleIcon } from './CheckCircleIcon.svg';
+export { ReactComponent as CloseIcon } from './CloseIcon.svg';

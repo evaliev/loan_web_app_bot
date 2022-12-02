@@ -1,10 +1,10 @@
 import { useCallback, useContext, useState } from 'react';
 
-import { Button, Dialog, DialogActions } from '@mui/material';
+import { IconButton, Dialog, DialogContent, DialogTitle } from '@mui/material';
 
 import styles from './styles.module.scss';
 import InputRange from '../../components/InputRange';
-import { DocsIcon } from '../../icons';
+import { CloseIcon, DocsIcon } from '../../icons';
 import { ContextApp } from '../../state/context';
 import { ActionTypes } from '../../state/types';
 import { useTelegramBtns } from '../../hooks';
@@ -113,11 +113,16 @@ export const TermPage = () => {
           Предварительный <span onClick={handleOpen}>график платежей</span>
         </p>
       </div>
-      <Dialog open={open} onClose={handleClose}>
-        <PaymentSchedule state={state} />
-        <DialogActions>
-          <Button onClick={handleClose}>Закрыть</Button>
-        </DialogActions>
+      <Dialog open={open} onClose={handleClose} scroll="body">
+        <DialogTitle className={styles.dialogTitle}>
+          Предварительный график платежей
+          <IconButton onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          <PaymentSchedule state={state} />
+        </DialogContent>
       </Dialog>
     </div>
   );
