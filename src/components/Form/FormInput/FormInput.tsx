@@ -21,7 +21,6 @@ const FormInput: FC<FormInputProps> = ({
   props,
   form,
 }) => {
-  // const context = useFormikContext<IFormData>(); return
   return (
     <div className={styles.formInput}>
       <label>{label}</label>

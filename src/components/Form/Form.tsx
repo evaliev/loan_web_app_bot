@@ -1,5 +1,5 @@
 import React, { Children, cloneElement, FC, ReactElement } from 'react';
-import { useFormik, validateYupSchema } from 'formik';
+import { useFormik } from 'formik';
 
 import styles from './Form.module.css';
 
