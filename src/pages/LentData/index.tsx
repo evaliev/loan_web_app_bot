@@ -1,5 +1,3 @@
-import * as Yup from 'yup';
-
 import styles from './LentData.module.css';
 import FormInput from '../../components/Form/FormInput/FormInput';
 import Form from '../../components/Form/Form';
@@ -19,15 +17,10 @@ export const LentDataPage = () => {
           initialValues={initialValues}
           validationSchema={LentValidationSchema}
         >
-          <FormInput label="Наименование" type="input" name="name" id="name" />
-          <FormInput label="ИНН" type="input" name="inn" id="inn" />
-          <FormInput label="Адрес" type="input" name="address" id="address" />
-          <FormInput
-            label="Телефон"
-            type="input"
-            name="telephone"
-            id="telephone"
-          />
+          <FormInput label="Наименование" type="input" name="name" />
+          <FormInput label="ИНН" type="input" name="inn" />
+          <FormInput label="Адрес" type="input" name="address" />
+          <FormInput label="Телефон" type="input" name="telephone" />
         </Form>
       </div>
     </div>
