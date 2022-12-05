@@ -26,3 +26,9 @@
 .formInput input::placeholder {
   color: rgba(60, 60, 67, 0.6);
 }
+
+.formError {
+  color: red;
+  font-size: 14px;
+  display: block;
+}

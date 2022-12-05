@@ -37,14 +37,14 @@ export const OwnerPage = () => {
     <>
       <h2 className={styles.cardTitle}>ФИО</h2>
       <div className={styles.card}>
-        <FormInput type="text" name="date" label="Фамилия" />
-        <FormInput type="text" name="date" label="Имя" />
-        <FormInput type="text" name="date" label="Отчество" />
+        <FormInput type="text" name="date" label="Фамилия" id="" />
+        <FormInput type="text" name="date" label="Имя" id="" />
+        <FormInput type="text" name="date" label="Отчество" id="" />
       </div>
       <br />
       <h2 className={styles.cardTitle}>Паспорт</h2>
       <div className={styles.card}>
-        <FormInput type="text" name="date" label="Серия номер" />
+        <FormInput type="text" name="date" label="Серия номер" id="" />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             label="Basic example"
@@ -59,14 +59,15 @@ export const OwnerPage = () => {
                 label="Дата выдачи"
                 props={params}
                 value={dayjs(value).format('DD.MM.YYYY')}
+                id=""
               />
             )}
           />
         </LocalizationProvider>
 
-        <FormInput type="text" name="date" label="Кем выдан" />
-        <FormInput type="text" name="date" label="Место рождения" />
-        <FormInput type="text" name="date" label="Адрес регистрации" />
+        <FormInput type="text" name="date" label="Кем выдан" id="" />
+        <FormInput type="text" name="date" label="Место рождения" id="" />
+        <FormInput type="text" name="date" label="Адрес регистрации" id="" />
       </div>
     </>
   );

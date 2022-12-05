@@ -12,6 +12,7 @@ import { PageStatuses } from './pages/types';
 import { ContextApp } from './state/context';
 import { initialState } from './state/initialState';
 import { reducer } from './state/reducer';
+import { LentDataPage } from './pages/LentData';
 import { telegram } from './telegram';
 
 const App = () => {
@@ -30,6 +31,8 @@ const App = () => {
         return <TermPage />;
       case PageStatuses.DATA_PAGE:
         return <DataPage />;
+      case PageStatuses.LENT_DATA_PAGE:
+        return <LentDataPage />;
       case PageStatuses.SUCCESS_PAGE:
         return <SuccessPage />;
       case PageStatuses.OWNER_DATA:
