@@ -1,15 +1,23 @@
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useState } from 'react';
+
+import { IconButton, Dialog, DialogContent, DialogTitle } from '@mui/material';
 
 import styles from './styles.module.scss';
 import InputRange from '../../components/InputRange';
-import { LogoIcon } from '../../icons';
+import { CloseIcon, DocsIcon } from '../../icons';
 import { ContextApp } from '../../state/context';
 import { ActionTypes } from '../../state/types';
 import { useTelegramBtns } from '../../hooks';
 import { PageStatuses } from '../types';
+import { PaymentSchedule } from '../../components/PaymentSchedule';
 
 export const TermPage = () => {
   const { state, dispatch } = useContext(ContextApp);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
 
   useTelegramBtns({
     mainBtnTitle: 'Далее',
@@ -69,7 +77,7 @@ export const TermPage = () => {
   return (
     <div>
       <div className={styles.header}>
-        <LogoIcon />
+        <DocsIcon width={87} height={70} />
         <p className={styles.title}>Экспресс-кредит для бизнеса</p>
         <p className={styles.subTitle}>Банк KEK (LOL)</p>
       </div>
@@ -102,9 +110,20 @@ export const TermPage = () => {
       <div className={styles.footer}>
         <p className={styles.title}>Ставка по кредиту от 11,5 %</p>
         <p className={styles.subTitle}>
-          Предварительный <a href="">график платежей</a>
+          Предварительный <span onClick={handleOpen}>график платежей</span>
         </p>
       </div>
+      <Dialog open={open} onClose={handleClose} scroll="body">
+        <DialogTitle className={styles.dialogTitle}>
+          Предварительный график платежей
+          <IconButton onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          <PaymentSchedule state={state} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -53,6 +53,7 @@ $button_vertical_padding: 16px;
   background: white;
   transition: background-color 0.3s;
   border: 0;
+  cursor: pointer;
 
   &::after {
     transition: background-color 0.3s;

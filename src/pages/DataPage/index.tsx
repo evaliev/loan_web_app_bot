@@ -2,8 +2,7 @@ import { useCallback, useContext } from 'react';
 
 import styles from './styles.module.scss';
 import { DetailLine } from '../../components/DetailLine';
-import { ReactComponent as DocsIcon } from './DocsIcon.svg';
-import { ReactComponent as ArrowIcon } from './Arrow.svg';
+import { DocsIcon, ArrowIcon } from '../../icons';
 import { useTelegramBtns } from '../../hooks';
 import { ActionTypes } from '../../state/types';
 import { PageStatuses } from '../types';
@@ -83,14 +82,14 @@ export const DataPage = () => {
           className={styles.dataButton}
           onClick={() => console.log('Данные ИП')}
         >
-          <span>Данные ИП</span>
+          Данные ИП
           <ArrowIcon />
         </button>
         <button
           className={styles.dataButton}
           onClick={() => console.log('Данные собственника')}
         >
-          <span>Данные собственника</span>
+          Данные собственника
           <ArrowIcon />
         </button>
       </div>

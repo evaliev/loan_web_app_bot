@@ -25,7 +25,10 @@ export const DebugBar = () => {
           height: '60px',
         }}
       >
-        <Select defaultValue={PageStatuses.TERM_PAGE} onChange={handleChange}>
+        <Select
+          defaultValue={Object.values(PageStatuses)[0]}
+          onChange={handleChange}
+        >
           {Object.values(PageStatuses).map((status) => (
             <MenuItem key={status} value={status}>
               {status}
