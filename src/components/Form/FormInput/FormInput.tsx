@@ -1,37 +1,35 @@
 import { FC } from 'react';
-import { useFormikContext } from 'formik';
 
 import styles from './FormInput.module.scss';
 
 export type FormInputProps = {
-  id: string;
   label: string;
   type: string;
   name: string;
   props?: any;
   value?: string;
   form?: any;
+  OnchangeHandler?: () => void;
 };
 
 const FormInput: FC<FormInputProps> = ({
-  id,
   label,
   type,
   name,
   props,
   form,
+  OnchangeHandler,
 }) => {
   return (
     <div className={styles.formInput}>
       <label>{label}</label>
       <input
-        id={id}
         type={type}
         name={name}
         placeholder="заполните"
         {...props}
         value={form.values.value}
-        onChange={form.handleChange}
+        onChange={OnchangeHandler}
         onBlur={form.handleBlur}
       />
       {form.touched.name && form.errors.name ? (
