@@ -18,6 +18,12 @@ export const DataPage = () => {
       payload: PageStatuses.TERM_PAGE,
     });
   }, []);
+  const hadleClickOwnerData = useCallback(() => {
+    dispatch({
+      type: ActionTypes.CHANGE_STATUS,
+      payload: PageStatuses.OWNER_DATA,
+    });
+  }, []);
 
   useTelegramBtns({
     mainBtnTitle: 'Отправить заявку',
@@ -85,10 +91,7 @@ export const DataPage = () => {
           Данные ИП
           <ArrowIcon />
         </button>
-        <button
-          className={styles.dataButton}
-          onClick={() => console.log('Данные собственника')}
-        >
+        <button className={styles.dataButton} onClick={hadleClickOwnerData}>
           Данные собственника
           <ArrowIcon />
         </button>
