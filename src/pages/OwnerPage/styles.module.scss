@@ -1,0 +1,23 @@
+@import '../../App.module.scss';
+
+.whiteBox {
+  background: #ffffff;
+  border-radius: $default_border_radius;
+  min-height: 10px;
+}
+
+.cardTitle {
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+  text-transform: uppercase;
+  letter-spacing: -0.408px;
+  color: $grey_text;
+
+  margin-bottom: 12px;
+  margin-left: 16px;
+}
+.card {
+  @extend .whiteBox;
+  padding: 8px 0 8px 16px;
+}

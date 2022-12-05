@@ -5,6 +5,7 @@ import { DebugBar } from './components/DebugBar';
 import { features, FeaturesType, isFeatureActive } from './features';
 import { DataPage } from './pages/DataPage';
 import { LoginPage } from './pages/LoginPage';
+import { OwnerPage } from './pages/OwnerPage';
 import { SuccessPage } from './pages/SuccessPage';
 import { TermPage } from './pages/TermPage';
 import { PageStatuses } from './pages/types';
@@ -31,6 +32,8 @@ const App = () => {
         return <DataPage />;
       case PageStatuses.SUCCESS_PAGE:
         return <SuccessPage />;
+      case PageStatuses.OWNER_DATA:
+        return <OwnerPage />;
       default:
         return <LoginPage />;
     }

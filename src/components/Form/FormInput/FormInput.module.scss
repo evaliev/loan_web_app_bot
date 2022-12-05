@@ -1,6 +1,8 @@
 .formInput {
-  margin-bottom: 1rem;
   border-bottom: 1px solid rgba(24, 24, 24, 0.24);
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+  }
 }
 
 .formInput:last-child {

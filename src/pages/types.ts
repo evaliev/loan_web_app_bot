@@ -3,6 +3,7 @@ export enum PageStatuses {
   TERM_PAGE = 'TERM_PAGE',
   DATA_PAGE = 'DATA_PAGE',
   SUCCESS_PAGE = 'SUCCESS_PAGE',
+  OWNER_DATA = 'OWNER_DATA',
 }
 
 export type TelegramBtnsProps = {
