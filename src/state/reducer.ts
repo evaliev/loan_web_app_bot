@@ -10,12 +10,12 @@ export const reducer = (state: State, action: Action): State => {
     case ActionTypes.AMOUNT_INCREASE:
       return {
         ...state,
-        amount: state.amount + 100,
+        amount: state.amount + 100000,
       };
     case ActionTypes.AMOUNT_DECREASE:
       return {
         ...state,
-        amount: state.amount - 100,
+        amount: state.amount - 100000,
       };
     case ActionTypes.AMOUNT_CHANGE:
       return {

@@ -4,6 +4,8 @@ import cc from 'classnames';
 import { MinusIcon, PlusIcon } from '../../icons';
 import styles from './styles.module.scss';
 
+const invalidChars = ['e', 'E', '+', '-'];
+
 type InputRangeProps = {
   value: number | null;
   label: string;
@@ -40,6 +42,7 @@ const InputRange = ({
           onBlur={() => {
             setIsFocused(false);
           }}
+          onKeyDown={(e) => invalidChars.includes(e.key) && e.preventDefault()}
           type="number"
           value={value || undefined}
         />

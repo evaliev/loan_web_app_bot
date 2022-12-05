@@ -27,6 +27,13 @@ export const TermPage = () => {
         payload: PageStatuses.DATA_PAGE,
       });
     },
+    hasBackBtn: true,
+    backBtnHandler: () => {
+      dispatch({
+        type: ActionTypes.CHANGE_STATUS,
+        payload: PageStatuses.LOGIN_PAGE,
+      });
+    },
   });
 
   const increaseAmount = useCallback(() => {
