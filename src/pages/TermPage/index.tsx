@@ -121,8 +121,8 @@ export const TermPage = () => {
         </p>
       </div>
       <Dialog open={open} onClose={handleClose} scroll="body">
-        <DialogTitle className={styles.dialogTitle}>
-          Предварительный график платежей
+        <DialogTitle className={styles.dialogTitle} component={'div'}>
+          <p>Предварительный график платежей</p>
           <IconButton onClick={handleClose}>
             <CloseIcon />
           </IconButton>
