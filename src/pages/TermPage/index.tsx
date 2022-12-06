@@ -10,6 +10,7 @@ import { ActionTypes } from '../../state/types';
 import { useTelegramBtns } from '../../hooks';
 import { PageStatuses } from '../types';
 import { PaymentSchedule } from '../../components/PaymentSchedule';
+import { getMonthlyPaymentByTerm } from '../../utils';
 
 export const TermPage = () => {
   const { state, dispatch } = useContext(ContextApp);
@@ -36,14 +37,6 @@ export const TermPage = () => {
     },
   });
 
-  const increaseAmount = useCallback(() => {
-    dispatch({ type: ActionTypes.AMOUNT_INCREASE });
-  }, [dispatch]);
-
-  const decreaseAmount = useCallback(() => {
-    dispatch({ type: ActionTypes.AMOUNT_DECREASE });
-  }, [dispatch]);
-
   const changeAmount = useCallback(
     (value: number) => {
       dispatch({ type: ActionTypes.AMOUNT_CHANGE, payload: value });
@@ -51,28 +44,12 @@ export const TermPage = () => {
     [dispatch],
   );
 
-  const increaseTerm = useCallback(() => {
-    dispatch({ type: ActionTypes.TERM_INCREASE });
-  }, [dispatch]);
-
-  const decreaseTerm = useCallback(() => {
-    dispatch({ type: ActionTypes.TERM_DECREASE });
-  }, [dispatch]);
-
   const changeTerm = useCallback(
     (value: number) => {
       dispatch({ type: ActionTypes.TERM_CHANGE, payload: value });
     },
     [dispatch],
   );
-
-  const increaseMonthlyPayment = useCallback(() => {
-    dispatch({ type: ActionTypes.MONTHLY_PAYMENT_INCREASE });
-  }, [dispatch]);
-
-  const decreaseMonthlyPayment = useCallback(() => {
-    dispatch({ type: ActionTypes.MONTHLY_PAYMENT_DECREASE });
-  }, [dispatch]);
 
   const changeMonthlyPayment = useCallback(
     (value: number) => {
@@ -91,26 +68,29 @@ export const TermPage = () => {
       <div className={styles.inputs}>
         <InputRange
           value={state.amount}
+          min={100_000}
+          max={5_000_000}
+          step={100_000}
           label="Сумма — до 5 млн ₽"
           withControls
-          increaseHandler={increaseAmount}
-          decreaseHandler={decreaseAmount}
           changeHandler={changeAmount}
         />
         <InputRange
           value={state.term}
+          min={1}
+          max={36}
+          step={1}
           label="Срок — до 36 месяцев"
           withControls
-          increaseHandler={increaseTerm}
-          decreaseHandler={decreaseTerm}
           changeHandler={changeTerm}
         />
         <InputRange
           value={state.monthlyPayment}
+          min={getMonthlyPaymentByTerm(state.amount, 36)}
+          max={getMonthlyPaymentByTerm(state.amount, 1)}
+          step={100}
           label="Ежемесячный платеж, ₽"
           withControls
-          increaseHandler={increaseMonthlyPayment}
-          decreaseHandler={decreaseMonthlyPayment}
           changeHandler={changeMonthlyPayment}
         />
       </div>

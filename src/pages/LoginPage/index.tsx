@@ -44,6 +44,8 @@ export const LoginPage = () => {
       <div className={styles.auth_input}>
         <InputRange
           value={state.INN}
+          min={0}
+          max={Infinity}
           label="Введите ИНН организации"
           changeHandler={changeINN}
         />
