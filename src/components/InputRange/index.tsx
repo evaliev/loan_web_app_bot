@@ -74,7 +74,7 @@ const InputRange = ({
   };
 
   const increaseHandler = () => {
-    const newValue = (value || 0) + (step || 1);
+    const newValue = (controlledValue || 0) + (step || 1);
 
     if (newValue >= min && newValue <= max) {
       changeHandler(newValue);
@@ -83,7 +83,7 @@ const InputRange = ({
   };
 
   const decreaseHandler = () => {
-    const newValue = (value || 0) - (step || 1);
+    const newValue = (controlledValue || 0) - (step || 1);
 
     if (newValue >= min && newValue <= max) {
       changeHandler(newValue);
