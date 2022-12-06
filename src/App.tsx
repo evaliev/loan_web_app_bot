@@ -2,7 +2,6 @@ import { useContext, useEffect, useReducer } from 'react';
 
 import styles from './App.module.scss';
 import { DebugBar } from './components/DebugBar';
-import { features, FeaturesType, isFeatureActive } from './features';
 import { DataPage } from './pages/DataPage';
 import { LoginPage } from './pages/LoginPage';
 import { OwnerPage } from './pages/OwnerPage';
@@ -47,7 +46,7 @@ const WrappedApp = () => {
   return (
     <ContextApp.Provider value={{ dispatch, state }}>
       <App />
-      {isFeatureActive(features, FeaturesType.DEBUG_BAR) && <DebugBar />}
+      {process.env.NODE_ENV === 'development' && <DebugBar />}
     </ContextApp.Provider>
   );
 };

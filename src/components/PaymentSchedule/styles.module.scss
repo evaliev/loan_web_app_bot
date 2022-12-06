@@ -1,0 +1,51 @@
+@import '../../App.module.scss';
+
+.scheduleRow {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid $border_color;
+  padding: 24px 0;
+
+  & > div {
+    display: flex;
+  }
+  & > div:last-child {
+    margin-top: 16px;
+    margin-left: 32px;
+
+    & > div {
+      width: 50%;
+    }
+  }
+}
+
+.scheduleRow:first-child {
+  padding-top: 0;
+}
+
+.paymentNumber {
+  background: #f1f1f6;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  text-align: center;
+  font-size: 10px;
+  line-height: 20px;
+  color: #8c92a3;
+}
+
+.paymentDate {
+  margin-left: 12px;
+  font-size: 14px;
+}
+
+.title {
+  margin-bottom: 1px;
+  font-size: 14px;
+  line-height: 18px;
+  color: #8c92a3;
+}
+
+.value {
+  line-height: 20px;
+}

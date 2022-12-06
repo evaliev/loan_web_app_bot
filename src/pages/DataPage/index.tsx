@@ -50,8 +50,9 @@ export const DataPage = () => {
             <DocsIcon />
           </div>
           <div className={styles.titlesContainer}>
-            <span className={styles.cardTitle}>Экспресс-кредит</span>
-            <span className={styles.cardTitle}>для бизнеса</span>
+            <span className={styles.cardTitle}>
+              Экспресс-кредит для бизнеса
+            </span>
             <span className={styles.cardSubtitle}>Банк KEK (LOL)</span>
           </div>
         </div>

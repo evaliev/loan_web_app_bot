@@ -85,7 +85,7 @@ $button_vertical_padding: 16px;
   }
 }
 .iconContainer {
-  margin-right: 24px;
+  margin-right: 32px;
 }
 
 .titlesContainer {
@@ -125,5 +125,6 @@ $button_vertical_padding: 16px;
   &:hover {
     border-bottom: 1px solid $light_blue;
     color: lighten($light_blue, 10%);
+    cursor: pointer;
   }
 }
