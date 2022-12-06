@@ -1,12 +1,6 @@
 import { FC } from 'react';
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import styles from './styles.module.scss';
 
 import { State } from '../../state/types';
 import {
@@ -28,31 +22,27 @@ export const PaymentSchedule: FC<Props> = ({ state }) => {
     }),
   );
   return (
-    <TableContainer component={Paper} elevation={0}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            {/* <TableCell>Номер платежа</TableCell> */}
-            <TableCell align="left">Дата платежа</TableCell>
-            <TableCell align="right">Общая сумма платежа</TableCell>
-            {/* <TableCell align="right">Сумма основного долга</TableCell> */}
-            {/* <TableCell align="right">Сумма процентов</TableCell> */}
-            <TableCell align="right">Остаток основного долга</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {paymentSchedule.map((payment) => (
-            <TableRow key={payment.paymentNumber}>
-              {/* <TableCell>{payment.paymentNumber}</TableCell> */}
-              <TableCell align="left">{payment.paymentDate}</TableCell>
-              <TableCell align="right">{payment.monthlyPayment}</TableCell>
-              {/* <TableCell align="right">{payment.debtPayment}</TableCell> */}
-              {/* <TableCell align="right">{payment.interestPayment}</TableCell> */}
-              <TableCell align="right">{payment.loanBalance}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      {paymentSchedule.map((payment) => (
+        <div key={payment.paymentNumber} className={styles.scheduleRow}>
+          <div>
+            <span className={styles.paymentNumber}>
+              {payment.paymentNumber}
+            </span>
+            <span className={styles.paymentDate}>{payment.paymentDate}</span>
+          </div>
+          <div>
+            <div>
+              <div className={styles.title}>Сумма платежа</div>
+              <div className={styles.value}>{payment.monthlyPayment} ₽</div>
+            </div>
+            <div>
+              <div className={styles.title}>Остаток долга</div>
+              <div className={styles.value}>{payment.loanBalance} ₽</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </>
   );
 };
