@@ -51,7 +51,12 @@
 }
 
 .dialogTitle {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  p {
+    margin-right: 40px;
+  }
+  button {
+    position: absolute;
+    top: 12px;
+    right: 8px;
+  }
 }

@@ -24,5 +24,10 @@ export const useTelegramBtns = ({
     } else {
       telegram.BackButton.hide();
     }
+
+    return () => {
+      telegram.MainButton.offClick(mainBtnHandler);
+      telegram.BackButton.offClick(backBtnHandler);
+    };
   }, []);
 };
