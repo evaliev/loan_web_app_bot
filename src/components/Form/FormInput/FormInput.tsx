@@ -29,11 +29,18 @@ const FormInput: FC<FormInputProps> = ({
         placeholder="заполните"
         {...props}
         value={form.values.value}
-        onChange={OnchangeHandler}
+        onChange={(e) => {
+          if (OnchangeHandler) {
+            OnchangeHandler();
+          }
+          form.setFieldValue(name, e.target.value);
+          form.setFieldTouched(name, false, false);
+          form.setFieldError(name, {});
+        }}
         onBlur={form.handleBlur}
       />
-      {form.touched.name && form.errors.name ? (
-        <span className={styles.formError}>{form.errors.name}</span>
+      {form.touched[name] && form.errors[name] ? (
+        <span className={styles.formError}>{form.errors[name]}</span>
       ) : null}
     </div>
   );

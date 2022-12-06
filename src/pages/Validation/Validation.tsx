@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const DEFAULT_ERROR_REQUIRED = 'Обязательное поле. Не соответствует формату';
+const DEFAULT_ERROR_REQUIRED = 'Обязательное поле';
 const ERROR_FORMAT = 'Не соответствует формату';
 const LATE_DATE = 'Дата должна быть не позднее текущей';
 const EARLY_DATE = 'Дата должна быть не ранее 01.01.1900';
@@ -22,7 +22,7 @@ export const LentValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required(DEFAULT_ERROR_REQUIRED)
     .max(50, DEFAULT_ERROR_REQUIRED)
-    .matches(VALIDATE_NAME, DEFAULT_ERROR_REQUIRED),
+    .matches(VALIDATE_NAME, ERROR_FORMAT),
   inn: Yup.string()
     .min(10, ERROR_FORMAT)
     .max(10, ERROR_FORMAT)
