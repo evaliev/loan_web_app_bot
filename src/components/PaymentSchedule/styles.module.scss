@@ -9,7 +9,7 @@
   & > div {
     display: flex;
   }
-  & > div:last-of-type {
+  & > div:last-child {
     margin-top: 16px;
     margin-left: 32px;
 
@@ -17,6 +17,10 @@
       width: 50%;
     }
   }
+}
+
+.scheduleRow:first-child {
+  padding-top: 0;
 }
 
 .paymentNumber {

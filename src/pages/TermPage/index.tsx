@@ -1,6 +1,6 @@
 import { useCallback, useContext, useState } from 'react';
 
-import { IconButton, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { IconButton, Dialog, DialogTitle } from '@mui/material';
 
 import styles from './styles.module.scss';
 import InputRange from '../../components/InputRange';
@@ -127,9 +127,9 @@ export const TermPage = () => {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        <DialogContent>
+        <div className={styles.dialogContent}>
           <PaymentSchedule state={state} />
-        </DialogContent>
+        </div>
       </Dialog>
     </div>
   );
