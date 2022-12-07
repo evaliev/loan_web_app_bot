@@ -18,7 +18,7 @@ const VALIDATE_ISSUEDBY = /^[А-Яа-яЁё]+([А-Яа-я0-9 .Ёё№'-]+[А-Я�
 const VALIDATE_PLACE = /^[А-Яа-яЁё]+(.+[А-Яа-яЁё0-9]+)*$/;
 
 export const LentValidationSchema = Yup.object().shape({
-  name: Yup.string()
+  firstName: Yup.string()
     .required(DEFAULT_ERROR_REQUIRED)
     .max(50, DEFAULT_ERROR_REQUIRED)
     .matches(VALIDATE_NAME, ERROR_FORMAT),
@@ -36,7 +36,7 @@ export const LentValidationSchema = Yup.object().shape({
 });
 
 export const OwnerValidationSchema = Yup.object().shape({
-  name: Yup.string()
+  firstName: Yup.string()
     .required(DEFAULT_ERROR_REQUIRED)
     .max(50, DEFAULT_ERROR_REQUIRED)
     .matches(VALIDATE_NAME, ERROR_FORMAT),
