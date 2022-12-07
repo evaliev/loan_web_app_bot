@@ -70,7 +70,8 @@ export const TermPage = () => {
           value={state.amount}
           min={100_000}
           max={5_000_000}
-          step={100_000}
+          increaseStep={100_000}
+          decreaseStep={100_000}
           label="Сумма — до 5 млн ₽"
           withControls
           changeHandler={changeAmount}
@@ -79,7 +80,8 @@ export const TermPage = () => {
           value={state.term}
           min={1}
           max={36}
-          step={1}
+          increaseStep={1}
+          decreaseStep={1}
           label="Срок — до 36 месяцев"
           withControls
           changeHandler={changeTerm}
@@ -88,9 +90,17 @@ export const TermPage = () => {
           value={state.monthlyPayment}
           min={getMonthlyPaymentByTerm(state.amount, 36)}
           max={getMonthlyPaymentByTerm(state.amount, 1)}
-          step={100}
+          increaseStep={
+            getMonthlyPaymentByTerm(state.amount, state.term + 1) -
+            getMonthlyPaymentByTerm(state.amount, state.term)
+          }
+          decreaseStep={
+            getMonthlyPaymentByTerm(state.amount, state.term) -
+            getMonthlyPaymentByTerm(state.amount, state.term - 1)
+          }
           label="Ежемесячный платеж, ₽"
           withControls
+          withoutInputChange
           changeHandler={changeMonthlyPayment}
         />
       </div>

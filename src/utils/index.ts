@@ -22,13 +22,10 @@ export const getTermByMonthlyPayment = (
 ): number => {
   const monthlyRate = getMonthlyRate(rate);
 
-  const term = Math.round(
-    Math.log10(
-      monthlyPayment / Math.abs(monthlyPayment - monthlyRate * amount),
-    ) / Math.log10(monthlyRate + 1),
+  return Math.round(
+    Math.log10(monthlyPayment / (monthlyPayment - monthlyRate * amount)) /
+      Math.log10(monthlyRate + 1),
   );
-
-  return term;
 };
 
 export const getAmountByMonthlyPayment = (

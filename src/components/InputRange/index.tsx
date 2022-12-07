@@ -17,9 +17,11 @@ type InputRangeProps = {
   value: number | null;
   min: number;
   max: number;
-  step?: number;
+  increaseStep?: number;
+  decreaseStep?: number;
   label: string;
   withControls?: boolean;
+  withoutInputChange?: boolean;
   changeHandler: (value: number) => void;
 };
 
@@ -27,15 +29,21 @@ const InputRange = ({
   value,
   min,
   max,
-  step,
+  increaseStep,
+  decreaseStep,
   label,
   withControls = false,
+  withoutInputChange = false,
   changeHandler,
 }: InputRangeProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const [controlledValue, setControlledValue] = useState(value);
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (withoutInputChange) {
+      return;
+    }
+
     const newValue = Number(e.target.value);
 
     setControlledValue(newValue);
@@ -74,7 +82,7 @@ const InputRange = ({
   };
 
   const increaseHandler = () => {
-    const newValue = (controlledValue || 0) + (step || 1);
+    const newValue = (controlledValue || 0) + (increaseStep || 1);
 
     if (newValue >= min && newValue <= max) {
       changeHandler(newValue);
@@ -83,7 +91,7 @@ const InputRange = ({
   };
 
   const decreaseHandler = () => {
-    const newValue = (controlledValue || 0) - (step || 1);
+    const newValue = (controlledValue || 0) - (decreaseStep || 1);
 
     if (newValue >= min && newValue <= max) {
       changeHandler(newValue);
