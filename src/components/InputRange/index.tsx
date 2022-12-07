@@ -1,4 +1,11 @@
-import { ChangeEventHandler, memo, useState } from 'react';
+import {
+  ChangeEventHandler,
+  FocusEventHandler,
+  KeyboardEventHandler,
+  memo,
+  useLayoutEffect,
+  useState,
+} from 'react';
 import cc from 'classnames';
 
 import { MinusIcon, PlusIcon } from '../../icons';
@@ -8,26 +15,93 @@ const invalidChars = ['e', 'E', '+', '-'];
 
 type InputRangeProps = {
   value: number | null;
+  min: number;
+  max: number;
+  increaseStep?: number;
+  decreaseStep?: number;
   label: string;
   withControls?: boolean;
-  increaseHandler?: VoidFunction;
-  decreaseHandler?: VoidFunction;
+  withoutInputChange?: boolean;
   changeHandler: (value: number) => void;
 };
 
 const InputRange = ({
   value,
+  min,
+  max,
+  increaseStep,
+  decreaseStep,
   label,
   withControls = false,
-  increaseHandler,
-  decreaseHandler,
+  withoutInputChange = false,
   changeHandler,
 }: InputRangeProps) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [controlledValue, setControlledValue] = useState(value);
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    changeHandler(Number(e.target.value));
+    if (withoutInputChange) {
+      return;
+    }
+
+    const newValue = Number(e.target.value);
+
+    setControlledValue(newValue);
   };
+
+  const onFocus: FocusEventHandler<HTMLInputElement> = () => {
+    setIsFocused(true);
+  };
+
+  const onBlur: FocusEventHandler<HTMLInputElement> = () => {
+    setIsFocused(false);
+
+    if (!controlledValue) {
+      return;
+    }
+
+    if (controlledValue >= min && controlledValue <= max) {
+      changeHandler(controlledValue);
+    }
+
+    if (controlledValue < min) {
+      changeHandler(min);
+      setControlledValue(min);
+    }
+
+    if (controlledValue > max) {
+      changeHandler(max);
+      setControlledValue(max);
+    }
+  };
+
+  const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (invalidChars.includes(e.key)) {
+      e.preventDefault();
+    }
+  };
+
+  const increaseHandler = () => {
+    const newValue = (controlledValue || 0) + (increaseStep || 1);
+
+    if (newValue >= min && newValue <= max) {
+      changeHandler(newValue);
+      setControlledValue(newValue);
+    }
+  };
+
+  const decreaseHandler = () => {
+    const newValue = (controlledValue || 0) - (decreaseStep || 1);
+
+    if (newValue >= min && newValue <= max) {
+      changeHandler(newValue);
+      setControlledValue(newValue);
+    }
+  };
+
+  useLayoutEffect(() => {
+    setControlledValue(value);
+  }, [value]);
 
   return (
     <div>
@@ -36,15 +110,11 @@ const InputRange = ({
       >
         <input
           onChange={onChange}
-          onFocus={() => {
-            setIsFocused(true);
-          }}
-          onBlur={() => {
-            setIsFocused(false);
-          }}
-          onKeyDown={(e) => invalidChars.includes(e.key) && e.preventDefault()}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onKeyDown={onKeyDown}
           type="number"
-          value={value || undefined}
+          value={controlledValue || ''}
         />
         {withControls && (
           <div className={styles.buttons}>

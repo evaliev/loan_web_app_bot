@@ -15,10 +15,39 @@ export const formatAmountDisplay = (amount: number, fixed = 0): string => {
 
 const getMonthlyRate = (rate: number): number => rate / 12 / 100;
 
+export const getTermByMonthlyPayment = (
+  amount: number,
+  monthlyPayment: number,
+  rate = 11.5,
+): number => {
+  const monthlyRate = getMonthlyRate(rate);
+
+  return Math.round(
+    Math.log10(monthlyPayment / (monthlyPayment - monthlyRate * amount)) /
+      Math.log10(monthlyRate + 1),
+  );
+};
+
+export const getAmountByMonthlyPayment = (
+  monthlyPayment: number,
+  term: number,
+  rate = 11.5,
+): number => {
+  const monthlyRate = getMonthlyRate(rate);
+
+  const annuityRate =
+    (monthlyRate * Math.pow(1 + monthlyRate, term)) /
+    (Math.pow(1 + monthlyRate, term) - 1);
+
+  const amount = monthlyPayment / annuityRate;
+
+  return amount;
+};
+
 export const getMonthlyPaymentByTerm = (
   amount: number,
   term: number,
-  rate: number,
+  rate = 11.5,
   round = true,
 ): number => {
   const monthlyRate = getMonthlyRate(rate);
