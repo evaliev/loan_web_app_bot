@@ -91,12 +91,12 @@ export const TermPage = () => {
           min={getMonthlyPaymentByTerm(state.amount, 36)}
           max={getMonthlyPaymentByTerm(state.amount, 1)}
           increaseStep={
-            getMonthlyPaymentByTerm(state.amount, state.term + 1) -
+            getMonthlyPaymentByTerm(state.amount, state.term - 1) -
             getMonthlyPaymentByTerm(state.amount, state.term)
           }
           decreaseStep={
             getMonthlyPaymentByTerm(state.amount, state.term) -
-            getMonthlyPaymentByTerm(state.amount, state.term - 1)
+            getMonthlyPaymentByTerm(state.amount, state.term + 1)
           }
           label="Ежемесячный платеж, ₽"
           withControls
