@@ -4,6 +4,12 @@ import Form from '../../components/Form/Form';
 import { LentValidationSchema } from '../Validation/Validation';
 
 export const initialValues = {};
+export type LentInitialValues = {
+  name: string;
+  address: string;
+  telephone: string;
+  inn: string;
+};
 
 export const LentDataPage = () => {
   const submit = () => console.log('submit');

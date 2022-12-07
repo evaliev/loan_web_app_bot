@@ -24,6 +24,12 @@ export const DataPage = () => {
       payload: PageStatuses.OWNER_DATA,
     });
   }, []);
+  const hadleClickLentData = useCallback(() => {
+    dispatch({
+      type: ActionTypes.CHANGE_STATUS,
+      payload: PageStatuses.LENT_DATA_PAGE,
+    });
+  }, []);
 
   useTelegramBtns({
     mainBtnTitle: 'Отправить заявку',
@@ -85,10 +91,7 @@ export const DataPage = () => {
         </div>
       </div>
       <div className={styles.buttonGroup}>
-        <button
-          className={styles.dataButton}
-          onClick={() => console.log('Данные ИП')}
-        >
+        <button className={styles.dataButton} onClick={hadleClickLentData}>
           Данные ИП
           <ArrowIcon />
         </button>
