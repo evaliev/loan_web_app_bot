@@ -3,12 +3,6 @@ import { useFormik } from 'formik';
 
 import styles from './Form.module.css';
 
-export type LentInitialValues = {
-  name: string;
-  address: string;
-  telephone: string;
-  inn: string;
-};
 export type FormComponentPros = {
   children: ReactElement | ReactElement[];
   submit: () => void;

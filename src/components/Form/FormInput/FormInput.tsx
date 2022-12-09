@@ -1,48 +1,30 @@
-import { FC } from 'react';
+import { useField } from 'formik';
 
 import styles from './FormInput.module.scss';
 
-export type FormInputProps = {
+type InputProps = {
   label: string;
-  type: string;
   name: string;
-  props?: any;
+  validate?: (value: any) => undefined | string | Promise<any>;
+  type?: string;
+  multiple?: boolean;
   value?: string;
-  form?: any;
-  OnchangeHandler?: () => void;
 };
 
-const FormInput: FC<FormInputProps> = ({
-  label,
-  type,
-  name,
-  props,
-  form,
-  OnchangeHandler,
-}) => {
+const FormInput = ({ label, ...props }: InputProps) => {
+  const [field, meta] = useField(props);
   return (
-    <div className={styles.formInput}>
-      <label>{label}</label>
-      <input
-        type={type}
-        name={name}
-        placeholder="заполните"
-        {...props}
-        value={form.values.value}
-        onChange={(e) => {
-          if (OnchangeHandler) {
-            OnchangeHandler();
-          }
-          form.setFieldValue(name, e.target.value);
-          form.setFieldTouched(name, false, false);
-          form.setFieldError(name, {});
-        }}
-        onBlur={form.handleBlur}
-      />
-      {form.touched[name] && form.errors[name] ? (
-        <span className={styles.formError}>{form.errors[name]}</span>
-      ) : null}
-    </div>
+    <>
+      <div className={styles.formInput}>
+        <div className={styles.inputWrap}>
+          <label>{label}</label>
+          <input {...field} {...props} placeholder="заполните" />
+        </div>
+        {meta.touched && meta.error ? (
+          <div className={styles.formError}>{meta.error}</div>
+        ) : null}
+      </div>
+    </>
   );
 };
 

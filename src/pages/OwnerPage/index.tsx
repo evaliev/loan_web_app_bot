@@ -4,8 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/ru';
-
-import { Input, TextField } from '@mui/material';
+import { Form, Formik, FormikProps } from 'formik';
 
 import styles from './styles.module.scss';
 import { ActionTypes } from '../../state/types';
@@ -13,7 +12,16 @@ import { PageStatuses } from '../types';
 import { ContextApp } from '../../state/context';
 import FormInput from '../../components/Form/FormInput/FormInput';
 import { useTelegramBtns } from '../../hooks';
+import { OwnerValidationSchema } from '../Validation/Validation';
 
+const initialValues = {
+  firstName: '',
+  lastName: '',
+};
+type Values = {
+  firstName: string;
+  lastName: string;
+};
 export const OwnerPage = () => {
   const { dispatch } = useContext(ContextApp);
 
@@ -38,47 +46,71 @@ export const OwnerPage = () => {
 
   return (
     <>
-      <h2 className={styles.cardTitle}>ФИО</h2>
-      <div className={styles.card}>
-        <FormInput type="text" name="date" label="Фамилия" />
-        <FormInput type="text" name="date" label="Имя" />
-        <FormInput type="text" name="date" label="Отчество" />
-      </div>
-      <br />
-      <h2 className={styles.cardTitle}>Паспорт</h2>
-      <div className={styles.card}>
-        <FormInput type="text" name="date" label="Серия номер" />
-        <LocalizationProvider
-          dateAdapter={AdapterDayjs}
-          adapterLocale={'ru'}
-          localeText={{
-            cancelButtonLabel: 'Закрыть',
-            okButtonLabel: 'Выбрать',
-          }}
-        >
-          <MobileDatePicker
-            disableFuture
-            label="Выберите дату"
-            value={value}
-            onChange={(newValue) => {
-              setValue(newValue);
-            }}
-            renderInput={(params) => (
+      <Formik
+        validationSchema={OwnerValidationSchema}
+        onSubmit={async (values) => {
+          await new Promise((r) => setTimeout(r, 500));
+          alert(JSON.stringify(values, null, 2));
+        }}
+        initialValues={initialValues}
+      >
+        {(props: FormikProps<Values>) => (
+          <Form>
+            <h2 className={styles.cardTitle}>ФИО</h2>
+            <div className={styles.card}>
+              <FormInput type="text" name="surname" label="Фамилия" />
+              <FormInput type="input" name="firstName" label="Имя" />
+              <FormInput type="input" name="midlename" label="Отчество" />
+            </div>
+            <br />
+            <h2 className={styles.cardTitle}>Паспорт</h2>
+            <div className={styles.card}>
               <FormInput
-                type="text"
-                name="date"
-                label="Дата выдачи"
-                props={params}
-                value={dayjs(value).format('DD.MM.YYYY')}
+                type="input"
+                name="seriesAndNumber"
+                label="Серия номер"
               />
-            )}
-          />
-        </LocalizationProvider>
-
-        <FormInput type="text" name="date" label="Кем выдан" />
-        <FormInput type="text" name="date" label="Место рождения" />
-        <FormInput type="text" name="date" label="Адрес регистрации" />
-      </div>
+              <LocalizationProvider
+                dateAdapter={AdapterDayjs}
+                adapterLocale={'ru'}
+                localeText={{
+                  cancelButtonLabel: 'Закрыть',
+                  okButtonLabel: 'Выбрать',
+                }}
+              >
+                <MobileDatePicker
+                  disableFuture
+                  label="Выберите дату"
+                  value={value}
+                  onChange={(newValue) => {
+                    setValue(newValue);
+                  }}
+                  renderInput={(params) => (
+                    <FormInput
+                      type="input"
+                      name="issueDate"
+                      label="Дата выдачи"
+                      props={params}
+                      value={dayjs(value).format('DD.MM.YYYY')}
+                    />
+                  )}
+                />
+              </LocalizationProvider>
+              <FormInput type="input" name="issuedBy" label="Кем выдан" />
+              <FormInput
+                type="input"
+                name="placeOfBirth"
+                label="Место рождения"
+              />
+              <FormInput
+                type="input"
+                name="address"
+                label="Адрес регистрации"
+              />
+            </div>
+          </Form>
+        )}
+      </Formik>
     </>
   );
 };
