@@ -9,7 +9,7 @@ import {
   FormattedPaymentItem,
 } from './types';
 
-export const formatAmountDisplay = (amount: number, fixed = 0): string => {
+export const formatAmountDisplay = (amount: number, fixed = 2): string => {
   return amount.toLocaleString('ru-RU', { maximumFractionDigits: fixed });
 };
 
@@ -48,7 +48,8 @@ export const getMonthlyPaymentByTerm = (
   amount: number,
   term: number,
   rate = 11.5,
-  round = true,
+  round = false,
+  fixed = 2,
 ): number => {
   const monthlyRate = getMonthlyRate(rate);
 
@@ -58,7 +59,9 @@ export const getMonthlyPaymentByTerm = (
 
   const monthlyPayment = amount * annuityRate;
 
-  return round ? Math.round(monthlyPayment) : monthlyPayment;
+  return round
+    ? Math.round(monthlyPayment)
+    : Number(monthlyPayment.toFixed(fixed));
 };
 
 export const getFirstPaymentDate = (paymentDay = 1) => {
