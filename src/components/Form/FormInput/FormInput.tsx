@@ -1,39 +1,29 @@
-import { FC } from 'react';
-import { ErrorMessage, Field } from 'formik';
+import { useField } from 'formik';
 
 import styles from './FormInput.module.scss';
 
-export type FormInputProps = {
+type InputProps = {
   label: string;
-  type: string;
   name: string;
-  props?: any;
+  validate?: (value: any) => undefined | string | Promise<any>;
+  type?: string;
+  multiple?: boolean;
   value?: string;
-  OnchangeHandler?: () => void;
 };
 
-const FormInput: FC<FormInputProps> = ({
-  label,
-  type,
-  name,
-  props,
-  OnchangeHandler,
-}) => {
+const FormInput = ({ label, ...props }: InputProps) => {
+  const [field, meta] = useField(props);
   return (
     <>
       <div className={styles.formInput}>
-        <label>{label}</label>
-        <Field
-          type={type}
-          name={name}
-          placeholder="заполните"
-          {...props}
-          onChange={OnchangeHandler}
-        />
+        <div className={styles.inputWrap}>
+          <label>{label}</label>
+          <input {...field} {...props} placeholder="заполните" />
+        </div>
+        {meta.touched && meta.error ? (
+          <div className={styles.formError}>{meta.error}</div>
+        ) : null}
       </div>
-      <span className={styles.formError}>
-        <ErrorMessage name={name} />
-      </span>
     </>
   );
 };
