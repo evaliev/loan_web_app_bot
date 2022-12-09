@@ -9,6 +9,7 @@ type InputProps = {
   type?: string;
   multiple?: boolean;
   value?: string;
+  props?: any;
 };
 
 const FormInput = ({ label, ...props }: InputProps) => {
