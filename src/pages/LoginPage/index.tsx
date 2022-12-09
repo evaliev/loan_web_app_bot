@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { SmartCaptcha } from '@yandex/smart-captcha';
 
 import styles from './styles.module.scss';
@@ -9,27 +9,41 @@ import { ContextApp } from '../../state/context';
 import { ActionTypes } from '../../state/types';
 import { telegram } from '../../telegram';
 import { PageStatuses } from '../types';
+import { INN_LENGTH } from '../../constants';
 
 export const LoginPage = () => {
   const { state, dispatch } = useContext(ContextApp);
+  const [isValid, setIsValid] = useState(false);
 
-  useTelegramBtns({
-    mainBtnTitle: 'Войти',
-    mainBtnHandler: () => {
-      dispatch({
-        type: ActionTypes.CHANGE_STATUS,
-        payload: PageStatuses.TERM_PAGE,
-      });
+  useTelegramBtns(
+    {
+      mainBtnTitle: 'Войти',
+      mainBtnHandler: () => {
+        dispatch({
+          type: ActionTypes.CHANGE_STATUS,
+          payload: PageStatuses.TERM_PAGE,
+        });
+      },
+      hasBackBtn: true,
+      backBtnHandler: () => {
+        telegram.close();
+      },
+      params: {
+        is_active: isValid,
+        color: isValid ? telegram.themeParams.button_color : '#9A9EA5',
+      },
     },
-    hasBackBtn: true,
-    backBtnHandler: () => {
-      telegram.close();
-    },
-  });
+    [isValid],
+  );
 
   const changeINN = useCallback(
     (value: number) => {
       dispatch({ type: ActionTypes.CHANGE_INN, payload: value });
+      if (String(value).length === INN_LENGTH) {
+        setIsValid(true);
+        return;
+      }
+      setIsValid(false);
     },
     [dispatch],
   );
@@ -46,11 +60,13 @@ export const LoginPage = () => {
           value={state.INN}
           min={0}
           max={Infinity}
+          maxLength={INN_LENGTH}
           label="Введите ИНН организации"
+          changeOnBlur={false}
           changeHandler={changeINN}
         />
       </div>
-      <SmartCaptcha sitekey={''} />
+      {isValid && <SmartCaptcha sitekey={''} />}
     </>
   );
 };

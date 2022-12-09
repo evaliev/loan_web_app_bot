@@ -3,12 +3,16 @@ import { useEffect } from 'react';
 import { TelegramBtnsProps } from '../pages/types';
 import { telegram } from '../telegram';
 
-export const useTelegramBtns = ({
-  mainBtnTitle,
-  hasBackBtn,
-  mainBtnHandler,
-  backBtnHandler,
-}: TelegramBtnsProps) => {
+export const useTelegramBtns = (
+  {
+    mainBtnTitle,
+    hasBackBtn,
+    mainBtnHandler,
+    backBtnHandler,
+    params,
+  }: TelegramBtnsProps,
+  deps: React.DependencyList = [],
+) => {
   useEffect(() => {
     if (mainBtnTitle && mainBtnHandler) {
       telegram.MainButton.text = mainBtnTitle;
@@ -25,9 +29,13 @@ export const useTelegramBtns = ({
       telegram.BackButton.hide();
     }
 
+    if (params) {
+      telegram.MainButton.setParams(params);
+    }
+
     return () => {
       telegram.MainButton.offClick(mainBtnHandler);
       telegram.BackButton.offClick(backBtnHandler);
     };
-  }, []);
+  }, deps);
 };

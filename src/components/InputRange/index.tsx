@@ -17,11 +17,13 @@ type InputRangeProps = {
   value: number | null;
   min: number;
   max: number;
+  maxLength?: number;
   increaseStep?: number;
   decreaseStep?: number;
   label: string;
   withControls?: boolean;
   withoutInputChange?: boolean;
+  changeOnBlur?: boolean;
   changeHandler: (value: number) => void;
 };
 
@@ -29,10 +31,12 @@ const InputRange = ({
   value,
   min,
   max,
+  maxLength,
   increaseStep,
   decreaseStep,
   label,
   withControls = false,
+  changeOnBlur = true,
   withoutInputChange = false,
   changeHandler,
 }: InputRangeProps) => {
@@ -44,9 +48,17 @@ const InputRange = ({
       return;
     }
 
+    if (maxLength && e.target.value.length > maxLength) {
+      return;
+    }
+
     const newValue = Number(e.target.value);
 
     setControlledValue(newValue);
+
+    if (!changeOnBlur) {
+      changeHandler(newValue);
+    }
   };
 
   const onFocus: FocusEventHandler<HTMLInputElement> = () => {
@@ -56,7 +68,7 @@ const InputRange = ({
   const onBlur: FocusEventHandler<HTMLInputElement> = () => {
     setIsFocused(false);
 
-    if (!controlledValue) {
+    if (!changeOnBlur || !controlledValue) {
       return;
     }
 
