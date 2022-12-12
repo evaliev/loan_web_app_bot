@@ -1,18 +1,15 @@
 import { useField } from 'formik';
+import { FC } from 'react';
 
 import styles from './FormInput.module.scss';
 
 type InputProps = {
   label: string;
   name: string;
-  validate?: (value: any) => undefined | string | Promise<any>;
-  type?: string;
-  multiple?: boolean;
-  value?: string;
-  props?: any;
+  [x: string]: unknown;
 };
 
-const FormInput = ({ label, ...props }: InputProps) => {
+const FormInput: FC<InputProps> = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
     <>

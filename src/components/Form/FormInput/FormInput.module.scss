@@ -1,5 +1,4 @@
 .formInput {
-  align-items: center;
   border-bottom: 1px solid rgba(24, 24, 24, 0.24);
   &:not(:last-child) {
     margin-bottom: 1rem;
@@ -7,6 +6,7 @@
 }
 .inputWrap {
   display: flex;
+  align-items: center;
 }
 .formInput:last-child {
   border-bottom: 0;
