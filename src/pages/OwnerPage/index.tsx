@@ -52,7 +52,7 @@ export const OwnerPage = () => {
   });
   const formRef = useRef<FormikProps<Values>>(null);
 
-  const [value, setValue] = useState<Dayjs | null>(dayjs());
+  const [value, setValue] = useState<Dayjs | null>(null);
 
   return (
     <>
@@ -96,6 +96,12 @@ export const OwnerPage = () => {
                   disableFuture
                   label="Выберите дату"
                   value={value}
+                  showToolbar={false}
+                  componentsProps={{
+                    actionBar: {
+                      actions: ['accept'],
+                    },
+                  }}
                   onChange={(newValue) => {
                     setValue(newValue);
                     setFieldValue(
@@ -110,7 +116,6 @@ export const OwnerPage = () => {
                       name="issueDate"
                       {...params}
                       label="Дата выдачи"
-                      value={dayjs(value).format('DD.MM.YYYY')}
                     />
                   )}
                 />
