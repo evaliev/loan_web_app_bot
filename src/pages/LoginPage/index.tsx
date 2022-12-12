@@ -29,8 +29,7 @@ export const LoginPage = () => {
         telegram.close();
       },
       params: {
-        is_active: isValid,
-        color: isValid ? telegram.themeParams.button_color : '#9A9EA5',
+        is_visible: isValid,
       },
     },
     [isValid],
@@ -61,7 +60,7 @@ export const LoginPage = () => {
           min={0}
           max={Infinity}
           maxLength={INN_LENGTH}
-          label="Введите ИНН организации"
+          label="Введите ИНН организации (12 символов)"
           changeOnBlur={false}
           changeHandler={changeINN}
         />
