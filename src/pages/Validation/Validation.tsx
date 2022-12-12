@@ -40,11 +40,11 @@ export const OwnerValidationSchema = Yup.object().shape({
     .required(DEFAULT_ERROR_REQUIRED)
     .max(50, DEFAULT_ERROR_REQUIRED)
     .matches(VALIDATE_NAME, ERROR_FORMAT),
-  surname: Yup.string()
+  lastName: Yup.string()
     .required(DEFAULT_ERROR_REQUIRED)
     .max(50, DEFAULT_ERROR_REQUIRED)
     .matches(VALIDATE_NAME, ERROR_FORMAT),
-  midlename: Yup.string()
+  middlename: Yup.string()
     .required(DEFAULT_ERROR_REQUIRED)
     .max(50, DEFAULT_ERROR_REQUIRED)
     .matches(VALIDATE_NAME, ERROR_FORMAT),

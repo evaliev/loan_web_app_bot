@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -17,10 +17,22 @@ import { OwnerValidationSchema } from '../Validation/Validation';
 const initialValues = {
   firstName: '',
   lastName: '',
+  middlename: '',
+  seriesAndNumber: '',
+  issueDate: '',
+  issuedBy: '',
+  placeOfBirth: '',
+  address: '',
 };
 type Values = {
   firstName: string;
   lastName: string;
+  middlename: string;
+  seriesAndNumber: string;
+  issueDate: string;
+  issuedBy: string;
+  placeOfBirth: string;
+  address: string;
 };
 export const OwnerPage = () => {
   const { dispatch } = useContext(ContextApp);
@@ -28,10 +40,7 @@ export const OwnerPage = () => {
   useTelegramBtns({
     mainBtnTitle: 'Готово',
     mainBtnHandler: () => {
-      dispatch({
-        type: ActionTypes.CHANGE_STATUS,
-        payload: PageStatuses.DATA_PAGE,
-      });
+      formRef.current && formRef.current.handleSubmit();
     },
     hasBackBtn: true,
     backBtnHandler: () => {
@@ -41,6 +50,7 @@ export const OwnerPage = () => {
       });
     },
   });
+  const formRef = useRef<FormikProps<Values>>(null);
 
   const [value, setValue] = useState<Dayjs | null>(dayjs());
 
@@ -48,19 +58,23 @@ export const OwnerPage = () => {
     <>
       <Formik
         validationSchema={OwnerValidationSchema}
-        onSubmit={async (values) => {
-          await new Promise((r) => setTimeout(r, 500));
-          alert(JSON.stringify(values, null, 2));
-        }}
         initialValues={initialValues}
+        innerRef={formRef}
+        onSubmit={(values) => {
+          alert(JSON.stringify(values, null, 2));
+          dispatch({
+            type: ActionTypes.CHANGE_STATUS,
+            payload: PageStatuses.DATA_PAGE,
+          });
+        }}
       >
-        {(props: FormikProps<Values>) => (
+        {({ setFieldValue }: FormikProps<Values>) => (
           <Form>
             <h2 className={styles.cardTitle}>ФИО</h2>
             <div className={styles.card}>
-              <FormInput type="text" name="surname" label="Фамилия" />
+              <FormInput type="text" name="lastName" label="Фамилия" />
               <FormInput type="input" name="firstName" label="Имя" />
-              <FormInput type="input" name="midlename" label="Отчество" />
+              <FormInput type="input" name="middlename" label="Отчество" />
             </div>
             <br />
             <h2 className={styles.cardTitle}>Паспорт</h2>
@@ -84,13 +98,18 @@ export const OwnerPage = () => {
                   value={value}
                   onChange={(newValue) => {
                     setValue(newValue);
+                    setFieldValue(
+                      'issueDate',
+                      dayjs(newValue).format('DD.MM.YYYY'),
+                      true,
+                    );
                   }}
                   renderInput={(params) => (
                     <FormInput
                       type="input"
                       name="issueDate"
+                      {...params}
                       label="Дата выдачи"
-                      props={params}
                       value={dayjs(value).format('DD.MM.YYYY')}
                     />
                   )}

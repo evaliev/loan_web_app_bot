@@ -1,24 +1,49 @@
 import { Form, Formik, FormikProps } from 'formik';
 
-import styles from './LentData.module.css';
+import { useContext } from 'react';
+
+import styles from './styles.module.scss';
 import FormInput from '../../components/Form/FormInput/FormInput';
 import { LentValidationSchema } from '../Validation/Validation';
+import { useTelegramBtns } from '../../hooks';
+import { ActionTypes } from '../../state/types';
+import { PageStatuses } from '../types';
+import { ContextApp } from '../../state/context';
 
 const initialValues = {
-  name: '',
+  companyName: '',
+  inn: '',
   address: '',
   telephone: '',
-  inn: '',
 };
 
 type LentInitialValues = {
-  name: string;
+  companyName: string;
+  inn: string;
   address: string;
   telephone: string;
-  inn: string;
 };
 
-export const LentDataPage = () => {
+export const IndiDataPage = () => {
+  const { dispatch } = useContext(ContextApp);
+
+  useTelegramBtns({
+    mainBtnTitle: 'Готово',
+    mainBtnHandler: () => {
+      dispatch({
+        type: ActionTypes.CHANGE_STATUS,
+        payload: PageStatuses.DATA_PAGE,
+      });
+    },
+    hasBackBtn: true,
+    backBtnHandler: () => {
+      dispatch({
+        type: ActionTypes.CHANGE_STATUS,
+        payload: PageStatuses.DATA_PAGE,
+      });
+    },
+  });
+
   return (
     <div className={styles.page}>
       <div className={styles.cardHeader}>Данные организации</div>
@@ -33,7 +58,7 @@ export const LentDataPage = () => {
         >
           {(props: FormikProps<LentInitialValues>) => (
             <Form>
-              <FormInput label="Наименование" type="input" name="firstName" />
+              <FormInput label="Наименование" type="input" name="companyName" />
               <FormInput label="ИНН" type="input" name="inn" />
               <FormInput label="Адрес" type="input" name="address" />
               <FormInput label="Телефон" type="input" name="telephone" />
