@@ -27,7 +27,7 @@ export const DataPage = () => {
   const hadleClickLentData = useCallback(() => {
     dispatch({
       type: ActionTypes.CHANGE_STATUS,
-      payload: PageStatuses.LENT_DATA_PAGE,
+      payload: PageStatuses.INDI_DATA_PAGE,
     });
   }, []);
 

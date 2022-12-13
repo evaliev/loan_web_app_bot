@@ -13,6 +13,10 @@ export const formatAmountDisplay = (amount: number, fixed = 2): string => {
   return amount.toLocaleString('ru-RU', { maximumFractionDigits: fixed });
 };
 
+export const deformAmount = (amount: string) => {
+  return amount.replace(/[^\d,]/g, '').replace(/[,]/g, '.');
+};
+
 const getMonthlyRate = (rate: number): number => rate / 12 / 100;
 
 export const getTermByMonthlyPayment = (

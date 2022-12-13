@@ -1,23 +1,16 @@
 import { Form, Formik, FormikProps } from 'formik';
 
-import { useContext } from 'react';
+import { useContext, useMemo, useRef } from 'react';
 
 import styles from './styles.module.scss';
 import FormInput from '../../components/Form/FormInput/FormInput';
-import { LentValidationSchema } from '../Validation/Validation';
+import { IndiValidationSchema } from '../Validation/Validation';
 import { useTelegramBtns } from '../../hooks';
 import { ActionTypes } from '../../state/types';
 import { PageStatuses } from '../types';
 import { ContextApp } from '../../state/context';
 
-const initialValues = {
-  companyName: '',
-  inn: '',
-  address: '',
-  telephone: '',
-};
-
-type LentInitialValues = {
+type IndiInitialValues = {
   companyName: string;
   inn: string;
   address: string;
@@ -25,15 +18,12 @@ type LentInitialValues = {
 };
 
 export const IndiDataPage = () => {
-  const { dispatch } = useContext(ContextApp);
+  const { dispatch, state } = useContext(ContextApp);
 
   useTelegramBtns({
     mainBtnTitle: 'Готово',
     mainBtnHandler: () => {
-      dispatch({
-        type: ActionTypes.CHANGE_STATUS,
-        payload: PageStatuses.DATA_PAGE,
-      });
+      formRef.current && formRef.current.handleSubmit();
     },
     hasBackBtn: true,
     backBtnHandler: () => {
@@ -44,26 +34,40 @@ export const IndiDataPage = () => {
     },
   });
 
+  const initialValues = useMemo(
+    () => ({
+      companyName: '',
+      inn: String(state.INN),
+      address: '',
+      telephone: '',
+    }),
+    [],
+  );
+
+  const formRef = useRef<FormikProps<IndiInitialValues>>(null);
+
   return (
     <div className={styles.page}>
       <div className={styles.cardHeader}>Данные организации</div>
       <div className={styles.card}>
         <Formik
-          validationSchema={LentValidationSchema}
-          onSubmit={async (values) => {
-            await new Promise((r) => setTimeout(r, 500));
+          validationSchema={IndiValidationSchema}
+          onSubmit={(values) => {
             alert(JSON.stringify(values, null, 2));
+            dispatch({
+              type: ActionTypes.CHANGE_STATUS,
+              payload: PageStatuses.DATA_PAGE,
+            });
           }}
           initialValues={initialValues}
+          innerRef={formRef}
         >
-          {(props: FormikProps<LentInitialValues>) => (
-            <Form>
-              <FormInput label="Наименование" type="input" name="companyName" />
-              <FormInput label="ИНН" type="input" name="inn" />
-              <FormInput label="Адрес" type="input" name="address" />
-              <FormInput label="Телефон" type="input" name="telephone" />
-            </Form>
-          )}
+          <Form>
+            <FormInput label="Наименование" type="input" name="companyName" />
+            <FormInput label="ИНН" type="input" name="inn" disabled />
+            <FormInput label="Адрес" type="input" name="address" />
+            <FormInput label="Телефон" type="input" name="telephone" />
+          </Form>
         </Formik>
       </div>
     </div>
