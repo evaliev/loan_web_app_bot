@@ -30,7 +30,7 @@ const App = () => {
         return <TermPage />;
       case PageStatuses.DATA_PAGE:
         return <DataPage />;
-      case PageStatuses.LENT_DATA_PAGE:
+      case PageStatuses.INDI_DATA_PAGE:
         return <IndiDataPage />;
       case PageStatuses.SUCCESS_PAGE:
         return <SuccessPage />;

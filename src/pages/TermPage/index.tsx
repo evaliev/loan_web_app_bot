@@ -64,6 +64,7 @@ export const TermPage = () => {
           value={state.amount}
           min={100_000}
           max={5_000_000}
+          formatAmount
           increaseStep={100_000}
           decreaseStep={100_000}
           label="Сумма — до 5 млн ₽"
@@ -84,6 +85,7 @@ export const TermPage = () => {
           value={state.monthlyPayment}
           min={getMonthlyPaymentByTerm(state.amount, 36)}
           max={getMonthlyPaymentByTerm(state.amount, 1)}
+          formatAmount
           increaseStep={
             getMonthlyPaymentByTerm(state.amount, state.term - 1) -
             getMonthlyPaymentByTerm(state.amount, state.term)
