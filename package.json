@@ -1,6 +1,5 @@
 {
   "name": "loan_web_app_bot",
-  "homepage": "https://evaliev.github.io/loan_web_app_bot",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -24,6 +23,7 @@
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-google-recaptcha": "^2.1.0",
     "react-imask": "^6.4.3",
     "react-scripts": "5.0.1",
     "sass": "^1.56.1",

@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { SmartCaptcha } from '@yandex/smart-captcha';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import styles from './styles.module.scss';
 import InputRange from '../../components/InputRange';
@@ -87,7 +88,7 @@ export const LoginPage = () => {
           changeHandler={changeINN}
         />
       </div>
-      {isValid && <SmartCaptcha sitekey={''} />}
+      {isValid && <ReCAPTCHA sitekey={process.env.APP_SITE_KEY} />}
 
       {/* DebugBar */}
       {process.env.NODE_ENV === 'development' && (
