@@ -9,8 +9,8 @@ import { ActionTypes, IndiInfo } from '../../state/types';
 import { PageStatuses } from '../types';
 import { ContextApp } from '../../state/context';
 import transport from '../../transport';
-import { Loader } from '../../components/Loader';
 import MaskedStyledInput from '../../components/MaskedInput';
+import { LoadingPage } from '../../components/LoadingPage';
 
 export const IndiDataPage = () => {
   const { state, dispatch } = useContext(ContextApp);
@@ -54,7 +54,7 @@ export const IndiDataPage = () => {
   });
 
   if (state.isLoading) {
-    return <Loader />;
+    return <LoadingPage />;
   }
 
   return (

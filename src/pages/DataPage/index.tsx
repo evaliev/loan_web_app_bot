@@ -9,7 +9,7 @@ import { PageStatuses } from '../types';
 import { ContextApp } from '../../state/context';
 import { formatAmountDisplay } from '../../utils';
 import transport from '../../transport';
-import { Loader } from '../../components/Loader';
+import { LoadingPage } from '../../components/LoadingPage';
 
 export const DataPage = () => {
   const { state, dispatch } = useContext(ContextApp);
@@ -74,7 +74,7 @@ export const DataPage = () => {
   });
 
   if (state.isLoading) {
-    return <Loader />;
+    return <LoadingPage />;
   }
 
   return (
