@@ -34,9 +34,10 @@ export const LoginPage = () => {
   );
 
   useEffect(() => {
+    console.dir(telegram);
     dispatch({
       type: ActionTypes.SET_CHAT_ID,
-      payload: telegram.initDataUnsafe.chat.id,
+      payload: telegram.initDataUnsafe.user?.id,
     });
   }, []);
 
