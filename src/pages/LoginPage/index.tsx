@@ -71,12 +71,6 @@ export const LoginPage = () => {
   const [captchaToken, setCaptchaToken] = useState(null);
   const captchaRef = useRef(null);
 
-  console.log(captchaRef);
-  console.log('key', process.env.REACT_APP_SITE_KEY);
-  const verify = () => {
-    console.log();
-  };
-
   function onChange(value: any) {
     console.log('Captcha value:', value);
   }
@@ -99,13 +93,16 @@ export const LoginPage = () => {
           changeHandler={changeINN}
         />
       </div>
-      <ReCAPTCHA
-        sitekey={process.env.REACT_APP_SITE_KEY!}
-        ref={captchaRef}
-        onChange={onChange}
-        theme="light"
-        style={{ display: 'inline-block' }}
-      />
+      <div className={styles.captcha}>
+        <ReCAPTCHA
+          sitekey={process.env.REACT_APP_SITE_KEY!}
+          ref={captchaRef}
+          onChange={onChange}
+          theme="light"
+          size="normal"
+          badge="inline"
+        />
+      </div>
 
       {/* DebugBar */}
       {process.env.NODE_ENV === 'development' && (
