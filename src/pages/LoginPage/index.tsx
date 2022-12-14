@@ -10,8 +10,8 @@ import { ContextApp } from '../../state/context';
 import { ActionTypes } from '../../state/types';
 import { telegram } from '../../telegram';
 import { INN_LENGTH } from '../../constants';
-import { Loader } from '../../components/Loader';
 import transport from '../../transport';
+import { LoadingPage } from '../../components/LoadingPage';
 
 export const LoginPage = () => {
   const { state, dispatch } = useContext(ContextApp);
@@ -35,10 +35,9 @@ export const LoginPage = () => {
   );
 
   useEffect(() => {
-    console.dir(telegram);
     dispatch({
       type: ActionTypes.SET_CHAT_ID,
-      payload: telegram.initDataUnsafe.user?.id,
+      payload: String(telegram.initDataUnsafe.user.id),
     });
   }, []);
 
@@ -67,7 +66,7 @@ export const LoginPage = () => {
   );
 
   if (state.isLoading) {
-    return <Loader />;
+    return <LoadingPage />;
   }
   const [captchaToken, setCaptchaToken] = useState(null);
   const captchaRef = useRef(null);

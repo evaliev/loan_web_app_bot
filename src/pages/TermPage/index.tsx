@@ -11,7 +11,7 @@ import { PageStatuses } from '../types';
 import { PaymentSchedule } from '../../components/PaymentSchedule';
 import { getMonthlyPaymentByTerm } from '../../utils';
 import transport from '../../transport';
-import { Loader } from '../../components/Loader';
+import { LoadingPage } from '../../components/LoadingPage';
 
 export const TermPage = () => {
   const { state, dispatch } = useContext(ContextApp);
@@ -69,7 +69,7 @@ export const TermPage = () => {
   };
 
   if (state.isLoading) {
-    return <Loader />;
+    return <LoadingPage />;
   }
 
   return (
