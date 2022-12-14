@@ -1,5 +1,6 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { SmartCaptcha } from '@yandex/smart-captcha';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import styles from './styles.module.scss';
 import InputRange from '../../components/InputRange';
@@ -36,7 +37,7 @@ export const LoginPage = () => {
   useEffect(() => {
     dispatch({
       type: ActionTypes.SET_CHAT_ID,
-      payload: String(telegram.initDataUnsafe.user.id),
+      payload: '2525',
     });
   }, []);
 
@@ -67,9 +68,21 @@ export const LoginPage = () => {
   if (state.isLoading) {
     return <LoadingPage />;
   }
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const captchaRef = useRef(null);
+
+  console.log(captchaRef);
+  console.log('key', process.env.REACT_APP_SITE_KEY);
+  const verify = () => {
+    console.log();
+  };
+
+  function onChange(value: any) {
+    console.log('Captcha value:', value);
+  }
 
   return (
-    <>
+    <form>
       <div className={styles.header}>
         <DocsIcon width={87} height={70} />
         <p className={styles.title}>Экспресс-кредит для бизнеса</p>
@@ -86,7 +99,13 @@ export const LoginPage = () => {
           changeHandler={changeINN}
         />
       </div>
-      {isValid && <SmartCaptcha sitekey={''} />}
+      <ReCAPTCHA
+        sitekey={process.env.REACT_APP_SITE_KEY!}
+        ref={captchaRef}
+        onChange={onChange}
+        theme="light"
+        style={{ display: 'inline-block' }}
+      />
 
       {/* DebugBar */}
       {process.env.NODE_ENV === 'development' && (
@@ -103,6 +122,6 @@ export const LoginPage = () => {
           Войти
         </button>
       )}
-    </>
+    </form>
   );
 };
