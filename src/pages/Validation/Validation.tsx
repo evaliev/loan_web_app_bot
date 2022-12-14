@@ -9,7 +9,7 @@ const INVALID_ISSUE_OR_BIRTH_DATE =
 export const REG_ADDRESS_ERROR_REQUIRED =
   'Необходимо указать адрес регистрации';
 
-const PHONE_NUMBER_MATCH = /^(?![0-9]([0-9])\1{9})/;
+const PHONE_NUMBER_MATCH = /[+]7.\(\d{3}\).\d{3}-\d{2}-\d{2}/;
 const DOC_SERIES_AND_NUMBER_MATCH =
   /^(?!00|02|06|13|16|21|23|31)[0-9]{4}(\s|)[0-9]{6}$/;
 const DOC_DEPARTMENT_CODE_MATCH = /^(?!(\d)\1{5})\d{6}$/;
@@ -31,7 +31,6 @@ export const IndiValidationSchema = Yup.object().shape({
     .required(REG_ADDRESS_ERROR_REQUIRED),
   tel: Yup.string()
     .matches(PHONE_NUMBER_MATCH, ERROR_FORMAT)
-    .min(11, ERROR_FORMAT)
     .required(DEFAULT_ERROR_REQUIRED),
 });
 

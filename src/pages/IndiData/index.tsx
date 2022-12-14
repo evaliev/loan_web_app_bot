@@ -10,6 +10,7 @@ import { PageStatuses } from '../types';
 import { ContextApp } from '../../state/context';
 import transport from '../../transport';
 import { Loader } from '../../components/Loader';
+import MaskedStyledInput from '../../components/MaskedInput';
 
 export const IndiDataPage = () => {
   const { state, dispatch } = useContext(ContextApp);
@@ -81,7 +82,12 @@ export const IndiDataPage = () => {
                 <FormInput label="Наименование" type="input" name="name" />
                 <FormInput label="ИНН" type="input" name="INN" />
                 <FormInput label="Адрес" type="input" name="address" />
-                <FormInput label="Телефон" type="input" name="tel" />
+                <MaskedStyledInput
+                  mask="+{7} (000) 000-00-00"
+                  label="Телефон"
+                  type="input"
+                  name="tel"
+                />
               </Form>
             );
           }}
