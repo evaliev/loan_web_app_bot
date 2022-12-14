@@ -1,6 +1,8 @@
-import { useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { TelegramBtnsProps } from '../pages/types';
+import { ContextApp } from '../state/context';
+import { ActionTypes } from '../state/types';
 import { telegram } from '../telegram';
 
 export const useTelegramBtns = (
@@ -38,4 +40,30 @@ export const useTelegramBtns = (
       telegram.BackButton.offClick(backBtnHandler);
     };
   }, deps);
+};
+
+export const useTransport = (requestCallback: () => Promise<void>) => {
+  const { dispatch } = useContext(ContextApp);
+
+  const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    if (isFetching) {
+      dispatch({
+        type: ActionTypes.SET_IS_LOADING,
+        payload: true,
+      });
+
+      requestCallback().finally(() => {
+        dispatch({
+          type: ActionTypes.SET_IS_LOADING,
+          payload: false,
+        });
+      });
+    }
+  }, [isFetching]);
+
+  return () => {
+    setIsFetching(true);
+  };
 };
