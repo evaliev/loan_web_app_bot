@@ -10,8 +10,21 @@ import cc from 'classnames';
 
 import { MinusIcon, PlusIcon } from '../../icons';
 import styles from './styles.module.scss';
+import { deformAmount, formatAmountDisplay } from '../../utils';
 
-const invalidChars = ['e', 'E', '+', '-'];
+const validKeys = [
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '0',
+  'Backspace',
+];
 
 type InputRangeProps = {
   value: number | null;
@@ -23,6 +36,7 @@ type InputRangeProps = {
   label: string;
   withControls?: boolean;
   withoutInputChange?: boolean;
+  formatAmount?: boolean;
   changeOnBlur?: boolean;
   changeHandler: (value: number) => void;
 };
@@ -36,6 +50,7 @@ const InputRange = ({
   decreaseStep,
   label,
   withControls = false,
+  formatAmount = false,
   changeOnBlur = true,
   withoutInputChange = false,
   changeHandler,
@@ -52,7 +67,7 @@ const InputRange = ({
       return;
     }
 
-    const newValue = Number(e.target.value);
+    const newValue = Number(deformAmount(e.target.value));
 
     setControlledValue(newValue);
 
@@ -88,7 +103,7 @@ const InputRange = ({
   };
 
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (invalidChars.includes(e.key)) {
+    if (!validKeys.includes(e.key)) {
       e.preventDefault();
     }
   };
@@ -115,6 +130,13 @@ const InputRange = ({
     setControlledValue(value);
   }, [value]);
 
+  const inputValue =
+    formatAmount && controlledValue
+      ? formatAmountDisplay(controlledValue)
+      : controlledValue
+      ? controlledValue
+      : '';
+
   return (
     <div>
       <div
@@ -125,8 +147,8 @@ const InputRange = ({
           onFocus={onFocus}
           onBlur={onBlur}
           onKeyDown={onKeyDown}
-          type="number"
-          value={controlledValue || ''}
+          type="text"
+          value={inputValue}
         />
         {withControls && (
           <div className={styles.buttons}>

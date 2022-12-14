@@ -17,14 +17,14 @@ const VALIDATE_NAME = /^[А-Яа-яЁё -]+$/;
 const VALIDATE_ISSUEDBY = /^[А-Яа-яЁё]+([А-Яа-я0-9 .Ёё№'-]+[А-Яа-яЁё0-9]+)*$/;
 const VALIDATE_PLACE = /^[А-Яа-яЁё]+(.+[А-Яа-яЁё0-9]+)*$/;
 
-export const LentValidationSchema = Yup.object().shape({
-  Name: Yup.string()
+export const IndiValidationSchema = Yup.object().shape({
+  name: Yup.string()
     .required(DEFAULT_ERROR_REQUIRED)
     .max(50, DEFAULT_ERROR_REQUIRED)
     .matches(VALIDATE_NAME, ERROR_FORMAT),
   INN: Yup.string()
-    .min(10, ERROR_FORMAT)
-    .max(10, ERROR_FORMAT)
+    .min(12, ERROR_FORMAT)
+    .max(12, ERROR_FORMAT)
     .required(DEFAULT_ERROR_REQUIRED),
   address: Yup.string()
     .max(1000, ERROR_FORMAT)
@@ -62,6 +62,5 @@ export const OwnerValidationSchema = Yup.object().shape({
     .matches(VALIDATE_PLACE, ERROR_FORMAT),
   address: Yup.string()
     .required(REG_ADDRESS_ERROR_REQUIRED)
-    .max(1000, DEFAULT_ERROR_REQUIRED)
-    .matches(VALIDATE_NAME, ERROR_FORMAT),
+    .max(1000, DEFAULT_ERROR_REQUIRED),
 });

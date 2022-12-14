@@ -86,7 +86,7 @@ export const OwnerPage = () => {
               <div className={styles.card}>
                 <FormInput type="text" name="secondName" label="Фамилия" />
                 <FormInput type="input" name="firstName" label="Имя" />
-                <FormInput type="input" name="middlename" label="Отчество" />
+                <FormInput type="input" name="middleName" label="Отчество" />
               </div>
               <br />
               <h2 className={styles.cardTitle}>Паспорт</h2>
@@ -104,6 +104,12 @@ export const OwnerPage = () => {
                     disableFuture
                     label="Выберите дату"
                     value={docDate}
+                    showToolbar={false}
+                    componentsProps={{
+                      actionBar: {
+                        actions: ['accept'],
+                      },
+                    }}
                     onChange={(newValue) => {
                       setDocDate(newValue);
                       setFieldValue(
@@ -118,7 +124,6 @@ export const OwnerPage = () => {
                         name="docDate"
                         {...params}
                         label="Дата выдачи"
-                        value={dayjs(docDate).format('DD.MM.YYYY')}
                       />
                     )}
                   />

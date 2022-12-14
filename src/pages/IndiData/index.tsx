@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef } from 'react';
 
 import styles from './styles.module.scss';
 import FormInput from '../../components/Form/FormInput/FormInput';
-import { LentValidationSchema } from '../Validation/Validation';
+import { IndiValidationSchema } from '../Validation/Validation';
 import { useTransport, useTelegramBtns } from '../../hooks';
 import { ActionTypes, IndiInfo } from '../../state/types';
 import { PageStatuses } from '../types';
@@ -63,7 +63,7 @@ export const IndiDataPage = () => {
         <Formik
           initialValues={state.indiInfo}
           innerRef={formRef}
-          validationSchema={LentValidationSchema}
+          validationSchema={IndiValidationSchema}
           onSubmit={() => {
             initSubmitRequest();
           }}

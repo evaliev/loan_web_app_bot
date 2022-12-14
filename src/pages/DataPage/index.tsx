@@ -64,7 +64,7 @@ export const DataPage = () => {
   const hadleClickIndiData = useTransport(async () => {
     const application = await transport.changeApplicationStatus(
       state.applicationId,
-      PageStatuses.LENT_DATA_PAGE,
+      PageStatuses.INDI_DATA_PAGE,
     );
 
     dispatch({
