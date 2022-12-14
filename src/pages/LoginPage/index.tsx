@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { SmartCaptcha } from '@yandex/smart-captcha';
 import ReCAPTCHA from 'react-google-recaptcha';
 
@@ -69,7 +69,12 @@ export const LoginPage = () => {
   if (state.isLoading) {
     return <Loader />;
   }
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const captchaRef = useRef(null);
 
+  const verify = () => {
+    console.log();
+  };
   return (
     <>
       <div className={styles.header}>
@@ -88,7 +93,9 @@ export const LoginPage = () => {
           changeHandler={changeINN}
         />
       </div>
-      {isValid && <ReCAPTCHA sitekey={process.env.APP_SITE_KEY} />}
+      {isValid && (
+        <ReCAPTCHA sitekey={process.env.APP_SITE_KEY!} ref={captchaRef} />
+      )}
 
       {/* DebugBar */}
       {process.env.NODE_ENV === 'development' && (
