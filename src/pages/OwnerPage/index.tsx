@@ -13,9 +13,9 @@ import { ContextApp } from '../../state/context';
 import FormInput from '../../components/Form/FormInput/FormInput';
 import { useTransport, useTelegramBtns } from '../../hooks';
 import { OwnerValidationSchema } from '../Validation/Validation';
-import { Loader } from '../../components/Loader';
 import transport from '../../transport';
 import MaskedStyledInput from '../../components/MaskedInput';
+import { LoadingPage } from '../../components/LoadingPage';
 
 export const OwnerPage = () => {
   const { state, dispatch } = useContext(ContextApp);
@@ -60,7 +60,7 @@ export const OwnerPage = () => {
   });
 
   if (state.isLoading) {
-    return <Loader />;
+    return <LoadingPage />;
   }
 
   return (
