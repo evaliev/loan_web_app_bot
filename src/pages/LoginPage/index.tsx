@@ -36,7 +36,7 @@ export const LoginPage = () => {
   useEffect(() => {
     dispatch({
       type: ActionTypes.SET_CHAT_ID,
-      payload: telegram.initDataUnsafe.user?.id,
+      payload: String(telegram.initDataUnsafe.user.id),
     });
   }, []);
 
