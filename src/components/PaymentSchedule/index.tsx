@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const PaymentSchedule: FC<Props> = ({ state }) => {
-  const { amount, term } = state;
+  const { amount, term } = state.conditions;
   const paymentSchedule = convertToPaymentsTableData(
     annuityPaymentSchedule({
       amount,

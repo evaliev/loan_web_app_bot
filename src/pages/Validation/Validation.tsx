@@ -18,18 +18,18 @@ const VALIDATE_ISSUEDBY = /^[А-Яа-яЁё]+([А-Яа-я0-9 .Ёё№'-]+[А-Я�
 const VALIDATE_PLACE = /^[А-Яа-яЁё]+(.+[А-Яа-яЁё0-9]+)*$/;
 
 export const IndiValidationSchema = Yup.object().shape({
-  companyName: Yup.string()
+  name: Yup.string()
     .required(DEFAULT_ERROR_REQUIRED)
     .max(50, DEFAULT_ERROR_REQUIRED)
     .matches(VALIDATE_NAME, ERROR_FORMAT),
-  inn: Yup.string()
+  INN: Yup.string()
     .min(12, ERROR_FORMAT)
     .max(12, ERROR_FORMAT)
     .required(DEFAULT_ERROR_REQUIRED),
   address: Yup.string()
     .max(1000, ERROR_FORMAT)
     .required(REG_ADDRESS_ERROR_REQUIRED),
-  telephone: Yup.string()
+  tel: Yup.string()
     .matches(PHONE_NUMBER_MATCH, ERROR_FORMAT)
     .min(11, ERROR_FORMAT)
     .required(DEFAULT_ERROR_REQUIRED),
@@ -40,7 +40,7 @@ export const OwnerValidationSchema = Yup.object().shape({
     .required(DEFAULT_ERROR_REQUIRED)
     .max(50, DEFAULT_ERROR_REQUIRED)
     .matches(VALIDATE_NAME, ERROR_FORMAT),
-  lastName: Yup.string()
+  secondName: Yup.string()
     .required(DEFAULT_ERROR_REQUIRED)
     .max(50, DEFAULT_ERROR_REQUIRED)
     .matches(VALIDATE_NAME, ERROR_FORMAT),
@@ -48,15 +48,15 @@ export const OwnerValidationSchema = Yup.object().shape({
     .required(DEFAULT_ERROR_REQUIRED)
     .max(50, DEFAULT_ERROR_REQUIRED)
     .matches(VALIDATE_NAME, ERROR_FORMAT),
-  seriesAndNumber: Yup.string()
+  docNumber: Yup.string()
     .required(DEFAULT_ERROR_REQUIRED)
     .matches(DOC_SERIES_AND_NUMBER_MATCH, ERROR_FORMAT),
-  issueDate: Yup.string().required(DEFAULT_ERROR_REQUIRED),
-  issuedBy: Yup.string()
+  docDate: Yup.string().required(DEFAULT_ERROR_REQUIRED),
+  docIssuedBy: Yup.string()
     .required(DEFAULT_ERROR_REQUIRED)
     .max(500, ERROR_FORMAT)
     .matches(VALIDATE_ISSUEDBY, ERROR_FORMAT),
-  placeOfBirth: Yup.string()
+  birthPlace: Yup.string()
     .required(DEFAULT_ERROR_REQUIRED)
     .max(200, DEFAULT_ERROR_REQUIRED)
     .matches(VALIDATE_PLACE, ERROR_FORMAT),

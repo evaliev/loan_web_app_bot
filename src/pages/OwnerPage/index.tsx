@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -7,134 +7,173 @@ import 'dayjs/locale/ru';
 import { Form, Formik, FormikProps } from 'formik';
 
 import styles from './styles.module.scss';
-import { ActionTypes } from '../../state/types';
+import { ActionTypes, OwnerInfo } from '../../state/types';
 import { PageStatuses } from '../types';
 import { ContextApp } from '../../state/context';
 import FormInput from '../../components/Form/FormInput/FormInput';
-import { useTelegramBtns } from '../../hooks';
+import { useTransport, useTelegramBtns } from '../../hooks';
 import { OwnerValidationSchema } from '../Validation/Validation';
+import { Loader } from '../../components/Loader';
+import transport from '../../transport';
 
-const initialValues = {
-  firstName: '',
-  lastName: '',
-  middlename: '',
-  seriesAndNumber: '',
-  issueDate: '',
-  issuedBy: '',
-  placeOfBirth: '',
-  address: '',
-};
-type Values = {
-  firstName: string;
-  lastName: string;
-  middlename: string;
-  seriesAndNumber: string;
-  issueDate: string;
-  issuedBy: string;
-  placeOfBirth: string;
-  address: string;
-};
 export const OwnerPage = () => {
-  const { dispatch } = useContext(ContextApp);
+  const { state, dispatch } = useContext(ContextApp);
+  const [docDate, setDocDate] = useState<Dayjs | null>(dayjs());
+  const formRef = useRef<FormikProps<OwnerInfo>>(null);
 
   useTelegramBtns({
     mainBtnTitle: 'Готово',
     mainBtnHandler: () => {
-      formRef.current && formRef.current.handleSubmit();
+      formRef.current?.handleSubmit();
     },
     hasBackBtn: true,
     backBtnHandler: () => {
-      dispatch({
-        type: ActionTypes.CHANGE_STATUS,
-        payload: PageStatuses.DATA_PAGE,
-      });
+      initGoBackRequest();
     },
   });
-  const formRef = useRef<FormikProps<Values>>(null);
 
-  const [value, setValue] = useState<Dayjs | null>(null);
+  const initSubmitRequest = useTransport(async () => {
+    await transport.updateOwnerInfo(state.applicationId, state.ownerInfo);
+
+    const application = await transport.changeApplicationStatus(
+      state.applicationId,
+      PageStatuses.DATA_PAGE,
+    );
+
+    dispatch({
+      type: ActionTypes.SET_APPLICATION_DATA,
+      payload: application,
+    });
+  });
+
+  const initGoBackRequest = useTransport(async () => {
+    const application = await transport.changeApplicationStatus(
+      state.applicationId,
+      PageStatuses.DATA_PAGE,
+    );
+
+    dispatch({
+      type: ActionTypes.SET_APPLICATION_DATA,
+      payload: application,
+    });
+  });
+
+  if (state.isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
       <Formik
-        validationSchema={OwnerValidationSchema}
-        initialValues={initialValues}
+        initialValues={state.ownerInfo}
         innerRef={formRef}
-        onSubmit={(values) => {
-          alert(JSON.stringify(values, null, 2));
-          dispatch({
-            type: ActionTypes.CHANGE_STATUS,
-            payload: PageStatuses.DATA_PAGE,
-          });
+        validationSchema={OwnerValidationSchema}
+        onSubmit={() => {
+          initSubmitRequest();
         }}
       >
-        {({ setFieldValue }: FormikProps<Values>) => (
-          <Form>
-            <h2 className={styles.cardTitle}>ФИО</h2>
-            <div className={styles.card}>
-              <FormInput type="text" name="lastName" label="Фамилия" />
-              <FormInput type="input" name="firstName" label="Имя" />
-              <FormInput type="input" name="middlename" label="Отчество" />
-            </div>
-            <br />
-            <h2 className={styles.cardTitle}>Паспорт</h2>
-            <div className={styles.card}>
-              <FormInput
-                type="input"
-                name="seriesAndNumber"
-                label="Серия номер"
-              />
-              <LocalizationProvider
-                dateAdapter={AdapterDayjs}
-                adapterLocale={'ru'}
-                localeText={{
-                  cancelButtonLabel: 'Закрыть',
-                  okButtonLabel: 'Выбрать',
-                }}
-              >
-                <MobileDatePicker
-                  disableFuture
-                  label="Выберите дату"
-                  value={value}
-                  showToolbar={false}
-                  componentsProps={{
-                    actionBar: {
-                      actions: ['accept'],
-                    },
+        {({ values, setFieldValue }: FormikProps<OwnerInfo>) => {
+          useEffect(() => {
+            dispatch({
+              type: ActionTypes.CHANGE_OWNER_INFO,
+              payload: values,
+            });
+          }, [values]);
+
+          return (
+            <Form>
+              <h2 className={styles.cardTitle}>ФИО</h2>
+              <div className={styles.card}>
+                <FormInput type="text" name="secondName" label="Фамилия" />
+                <FormInput type="input" name="firstName" label="Имя" />
+                <FormInput type="input" name="middleName" label="Отчество" />
+              </div>
+              <br />
+              <h2 className={styles.cardTitle}>Паспорт</h2>
+              <div className={styles.card}>
+                <FormInput type="input" name="docNumber" label="Серия номер" />
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  adapterLocale={'ru'}
+                  localeText={{
+                    cancelButtonLabel: 'Закрыть',
+                    okButtonLabel: 'Выбрать',
                   }}
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                    setFieldValue(
-                      'issueDate',
-                      dayjs(newValue).format('DD.MM.YYYY'),
-                      true,
-                    );
-                  }}
-                  renderInput={(params) => (
-                    <FormInput
-                      type="input"
-                      name="issueDate"
-                      {...params}
-                      label="Дата выдачи"
-                    />
-                  )}
+                >
+                  <MobileDatePicker
+                    disableFuture
+                    label="Выберите дату"
+                    value={docDate}
+                    showToolbar={false}
+                    componentsProps={{
+                      actionBar: {
+                        actions: ['accept'],
+                      },
+                    }}
+                    onChange={(newValue) => {
+                      setDocDate(newValue);
+                      setFieldValue(
+                        'docDate',
+                        dayjs(newValue).format('DD.MM.YYYY'),
+                        true,
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <FormInput
+                        type="input"
+                        name="docDate"
+                        {...params}
+                        label="Дата выдачи"
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
+                <FormInput type="input" name="docIssuedBy" label="Кем выдан" />
+                <FormInput
+                  type="input"
+                  name="birthPlace"
+                  label="Место рождения"
                 />
-              </LocalizationProvider>
-              <FormInput type="input" name="issuedBy" label="Кем выдан" />
-              <FormInput
-                type="input"
-                name="placeOfBirth"
-                label="Место рождения"
-              />
-              <FormInput
-                type="input"
-                name="address"
-                label="Адрес регистрации"
-              />
-            </div>
-          </Form>
-        )}
+                <FormInput
+                  type="input"
+                  name="address"
+                  label="Адрес регистрации"
+                />
+              </div>
+            </Form>
+          );
+        }}
       </Formik>
+
+      {/* DebugBar */}
+      {process.env.NODE_ENV === 'development' && (
+        <>
+          <button
+            style={{
+              position: 'fixed',
+              bottom: 0,
+              right: 0,
+              width: 200,
+              height: 50,
+            }}
+            onClick={initSubmitRequest}
+          >
+            Готово
+          </button>
+          <button
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: 200,
+              height: 50,
+            }}
+            onClick={initGoBackRequest}
+          >
+            go_back
+          </button>
+        </>
+      )}
     </>
   );
 };

@@ -1,5 +1,4 @@
 import { useCallback, useContext, useState } from 'react';
-
 import { IconButton, Dialog, DialogTitle } from '@mui/material';
 
 import styles from './styles.module.scss';
@@ -7,28 +6,37 @@ import InputRange from '../../components/InputRange';
 import { CloseIcon, DocsIcon } from '../../icons';
 import { ContextApp } from '../../state/context';
 import { ActionTypes } from '../../state/types';
-import { useTelegramBtns } from '../../hooks';
+import { useTransport, useTelegramBtns } from '../../hooks';
 import { PageStatuses } from '../types';
 import { PaymentSchedule } from '../../components/PaymentSchedule';
 import { getMonthlyPaymentByTerm } from '../../utils';
+import transport from '../../transport';
+import { Loader } from '../../components/Loader';
 
 export const TermPage = () => {
   const { state, dispatch } = useContext(ContextApp);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => setOpen(false);
+  const [openSchedule, setOpenSchedule] = useState(false);
 
   useTelegramBtns({
     mainBtnTitle: 'Далее',
     mainBtnHandler: () => {
-      dispatch({
-        type: ActionTypes.CHANGE_STATUS,
-        payload: PageStatuses.DATA_PAGE,
-      });
+      initSubmitRequest();
     },
     hasBackBtn: false,
+  });
+
+  const initSubmitRequest = useTransport(async () => {
+    await transport.updateConditions(state.applicationId, state.conditions);
+
+    const application = await transport.changeApplicationStatus(
+      state.applicationId,
+      PageStatuses.DATA_PAGE,
+    );
+
+    dispatch({
+      type: ActionTypes.SET_APPLICATION_DATA,
+      payload: application,
+    });
   });
 
   const changeAmount = useCallback(
@@ -52,6 +60,18 @@ export const TermPage = () => {
     [dispatch],
   );
 
+  const handleOpenSchedule = () => {
+    setOpenSchedule(true);
+  };
+
+  const handleCloseSchedule = () => {
+    setOpenSchedule(false);
+  };
+
+  if (state.isLoading) {
+    return <Loader />;
+  }
+
   return (
     <div>
       <div className={styles.header}>
@@ -61,7 +81,7 @@ export const TermPage = () => {
       </div>
       <div className={styles.inputs}>
         <InputRange
-          value={state.amount}
+          value={state.conditions.amount}
           min={100_000}
           max={5_000_000}
           formatAmount
@@ -72,7 +92,7 @@ export const TermPage = () => {
           changeHandler={changeAmount}
         />
         <InputRange
-          value={state.term}
+          value={state.conditions.term}
           min={1}
           max={36}
           increaseStep={1}
@@ -82,17 +102,29 @@ export const TermPage = () => {
           changeHandler={changeTerm}
         />
         <InputRange
-          value={state.monthlyPayment}
-          min={getMonthlyPaymentByTerm(state.amount, 36)}
-          max={getMonthlyPaymentByTerm(state.amount, 1)}
+          value={state.conditions.monthlyPayment}
+          min={getMonthlyPaymentByTerm(state.conditions.amount, 36)}
+          max={getMonthlyPaymentByTerm(state.conditions.amount, 1)}
           formatAmount
           increaseStep={
-            getMonthlyPaymentByTerm(state.amount, state.term - 1) -
-            getMonthlyPaymentByTerm(state.amount, state.term)
+            getMonthlyPaymentByTerm(
+              state.conditions.amount,
+              state.conditions.term - 1,
+            ) -
+            getMonthlyPaymentByTerm(
+              state.conditions.amount,
+              state.conditions.term,
+            )
           }
           decreaseStep={
-            getMonthlyPaymentByTerm(state.amount, state.term) -
-            getMonthlyPaymentByTerm(state.amount, state.term + 1)
+            getMonthlyPaymentByTerm(
+              state.conditions.amount,
+              state.conditions.term,
+            ) -
+            getMonthlyPaymentByTerm(
+              state.conditions.amount,
+              state.conditions.term + 1,
+            )
           }
           label="Ежемесячный платеж, ₽"
           withControls
@@ -103,13 +135,14 @@ export const TermPage = () => {
       <div className={styles.footer}>
         <p className={styles.title}>Ставка по кредиту от 11,5 %</p>
         <p className={styles.subTitle}>
-          Предварительный <span onClick={handleOpen}>график платежей</span>
+          Предварительный{' '}
+          <span onClick={handleOpenSchedule}>график платежей</span>
         </p>
       </div>
-      <Dialog open={open} onClose={handleClose} scroll="body">
+      <Dialog open={openSchedule} onClose={handleCloseSchedule} scroll="body">
         <DialogTitle className={styles.dialogTitle} component={'div'}>
           <p>Предварительный график платежей</p>
-          <IconButton onClick={handleClose}>
+          <IconButton onClick={handleCloseSchedule}>
             <CloseIcon />
           </IconButton>
         </DialogTitle>
@@ -117,6 +150,22 @@ export const TermPage = () => {
           <PaymentSchedule state={state} />
         </div>
       </Dialog>
+
+      {/* DebugBar */}
+      {process.env.NODE_ENV === 'development' && (
+        <button
+          style={{
+            position: 'fixed',
+            bottom: 0,
+            right: 0,
+            width: 200,
+            height: 50,
+          }}
+          onClick={initSubmitRequest}
+        >
+          Далее
+        </button>
+      )}
     </div>
   );
 };

@@ -1,52 +1,81 @@
-import { useCallback, useContext } from 'react';
+import { useContext } from 'react';
 
 import styles from './styles.module.scss';
 import { DetailLine } from '../../components/DetailLine';
 import { DocsIcon, ArrowIcon } from '../../icons';
-import { useTelegramBtns } from '../../hooks';
+import { useTransport, useTelegramBtns } from '../../hooks';
 import { ActionTypes } from '../../state/types';
 import { PageStatuses } from '../types';
 import { ContextApp } from '../../state/context';
 import { formatAmountDisplay } from '../../utils';
+import transport from '../../transport';
+import { Loader } from '../../components/Loader';
 
 export const DataPage = () => {
   const { state, dispatch } = useContext(ContextApp);
 
-  const handleClick = useCallback(() => {
-    dispatch({
-      type: ActionTypes.CHANGE_STATUS,
-      payload: PageStatuses.TERM_PAGE,
-    });
-  }, []);
-  const hadleClickOwnerData = useCallback(() => {
-    dispatch({
-      type: ActionTypes.CHANGE_STATUS,
-      payload: PageStatuses.OWNER_DATA,
-    });
-  }, []);
-  const hadleClickLentData = useCallback(() => {
-    dispatch({
-      type: ActionTypes.CHANGE_STATUS,
-      payload: PageStatuses.INDI_DATA_PAGE,
-    });
-  }, []);
-
   useTelegramBtns({
     mainBtnTitle: 'Отправить заявку',
     mainBtnHandler: () => {
-      dispatch({
-        type: ActionTypes.CHANGE_STATUS,
-        payload: PageStatuses.SUCCESS_PAGE,
-      });
+      initSubmitRequest();
     },
     hasBackBtn: true,
     backBtnHandler: () => {
-      dispatch({
-        type: ActionTypes.CHANGE_STATUS,
-        payload: PageStatuses.TERM_PAGE,
-      });
+      initGoBackRequest();
     },
   });
+
+  const initSubmitRequest = useTransport(async () => {
+    const application = await transport.changeApplicationStatus(
+      state.applicationId,
+      PageStatuses.SUCCESS_PAGE,
+    );
+
+    dispatch({
+      type: ActionTypes.SET_APPLICATION_DATA,
+      payload: application,
+    });
+  });
+
+  const initGoBackRequest = useTransport(async () => {
+    const application = await transport.changeApplicationStatus(
+      state.applicationId,
+      PageStatuses.TERM_PAGE,
+    );
+
+    dispatch({
+      type: ActionTypes.SET_APPLICATION_DATA,
+      payload: application,
+    });
+  });
+
+  const hadleClickOwnerData = useTransport(async () => {
+    const application = await transport.changeApplicationStatus(
+      state.applicationId,
+      PageStatuses.OWNER_DATA,
+    );
+
+    dispatch({
+      type: ActionTypes.SET_APPLICATION_DATA,
+      payload: application,
+    });
+  });
+
+  const hadleClickIndiData = useTransport(async () => {
+    const application = await transport.changeApplicationStatus(
+      state.applicationId,
+      PageStatuses.INDI_DATA_PAGE,
+    );
+
+    dispatch({
+      type: ActionTypes.SET_APPLICATION_DATA,
+      payload: application,
+    });
+  });
+
+  if (state.isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -72,7 +101,7 @@ export const DataPage = () => {
             value={
               <span
                 className={styles.detailsListHeaderValue}
-                onClick={handleClick}
+                onClick={initGoBackRequest}
               >
                 Изменить
               </span>
@@ -80,18 +109,18 @@ export const DataPage = () => {
           />
           <DetailLine
             label={'Сумма'}
-            value={`${formatAmountDisplay(state.amount)} ₽`}
+            value={`${formatAmountDisplay(state.conditions.amount)} ₽`}
           />
-          <DetailLine label={'Срок'} value={`${state.term} мес`} />
+          <DetailLine label={'Срок'} value={`${state.conditions.term} мес`} />
           <DetailLine
             label={'Ежемесячный платеж'}
-            value={`${formatAmountDisplay(state.monthlyPayment)} ₽`}
+            value={`${formatAmountDisplay(state.conditions.monthlyPayment)} ₽`}
           />
           <DetailLine label={'Ставка от'} value={'11,5 %'} />
         </div>
       </div>
       <div className={styles.buttonGroup}>
-        <button className={styles.dataButton} onClick={hadleClickLentData}>
+        <button className={styles.dataButton} onClick={hadleClickIndiData}>
           Данные ИП
           <ArrowIcon />
         </button>
@@ -100,6 +129,36 @@ export const DataPage = () => {
           <ArrowIcon />
         </button>
       </div>
+
+      {/* DebugBar */}
+      {process.env.NODE_ENV === 'development' && (
+        <>
+          <button
+            style={{
+              position: 'fixed',
+              bottom: 0,
+              right: 0,
+              width: 200,
+              height: 50,
+            }}
+            onClick={initSubmitRequest}
+          >
+            Отправить заявку
+          </button>
+          <button
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: 200,
+              height: 50,
+            }}
+            onClick={initGoBackRequest}
+          >
+            go_back
+          </button>
+        </>
+      )}
     </>
   );
 };
