@@ -15,6 +15,7 @@ import { useTransport, useTelegramBtns } from '../../hooks';
 import { OwnerValidationSchema } from '../Validation/Validation';
 import { Loader } from '../../components/Loader';
 import transport from '../../transport';
+import MaskedStyledInput from '../../components/MaskedInput';
 
 export const OwnerPage = () => {
   const { state, dispatch } = useContext(ContextApp);
@@ -91,7 +92,12 @@ export const OwnerPage = () => {
               <br />
               <h2 className={styles.cardTitle}>Паспорт</h2>
               <div className={styles.card}>
-                <FormInput type="input" name="docNumber" label="Серия номер" />
+                <MaskedStyledInput
+                  mask="0000 000000"
+                  type="input"
+                  name="docNumber"
+                  label="Серия номер"
+                />
                 <LocalizationProvider
                   dateAdapter={AdapterDayjs}
                   adapterLocale={'ru'}
@@ -122,7 +128,8 @@ export const OwnerPage = () => {
                       <FormInput
                         type="input"
                         name="docDate"
-                        {...params}
+                        onKeyDown={(e) => e.preventDefault()}
+                        {...(params as React.InputHTMLAttributes<HTMLInputElement>)}
                         label="Дата выдачи"
                       />
                     )}
