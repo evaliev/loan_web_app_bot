@@ -1,5 +1,4 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { SmartCaptcha } from '@yandex/smart-captcha';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 import styles from './styles.module.scss';
@@ -11,11 +10,13 @@ import { ActionTypes } from '../../state/types';
 import { telegram } from '../../telegram';
 import { INN_LENGTH } from '../../constants';
 import transport from '../../transport';
-import { LoadingPage } from '../../components/LoadingPage';
 
 export const LoginPage = () => {
   const { state, dispatch } = useContext(ContextApp);
   const [isValid, setIsValid] = useState(false);
+
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const captchaRef = useRef(null);
 
   useTelegramBtns(
     {
@@ -35,9 +36,14 @@ export const LoginPage = () => {
   );
 
   useEffect(() => {
+    const chatId =
+      process.env.NODE_ENV === 'production'
+        ? String(telegram.initDataUnsafe.user.id)
+        : '001';
+
     dispatch({
       type: ActionTypes.SET_CHAT_ID,
-      payload: '2525',
+      payload: chatId,
     });
   }, []);
 
@@ -65,18 +71,12 @@ export const LoginPage = () => {
     [dispatch],
   );
 
-  if (state.isLoading) {
-    return <LoadingPage />;
-  }
-  const [captchaToken, setCaptchaToken] = useState(null);
-  const captchaRef = useRef(null);
-
-  function onChange(value: any) {
+  const onChangeCaptcha = (value: any) => {
     console.log('Captcha value:', value);
-  }
+  };
 
   return (
-    <form>
+    <>
       <div className={styles.header}>
         <DocsIcon width={87} height={70} />
         <p className={styles.title}>Экспресс-кредит для бизнеса</p>
@@ -97,7 +97,7 @@ export const LoginPage = () => {
         <ReCAPTCHA
           sitekey={process.env.REACT_APP_SITE_KEY!}
           ref={captchaRef}
-          onChange={onChange}
+          onChange={onChangeCaptcha}
           theme="light"
           size="normal"
           badge="inline"
@@ -119,6 +119,6 @@ export const LoginPage = () => {
           Войти
         </button>
       )}
-    </form>
+    </>
   );
 };

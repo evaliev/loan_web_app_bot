@@ -143,3 +143,11 @@ export const convertToPaymentsTableData = (
 
   return paymentsList;
 };
+
+export const delay = (ms = 500): Promise<void> => {
+  return new Promise((res) => {
+    setTimeout(() => {
+      res();
+    }, ms);
+  });
+};

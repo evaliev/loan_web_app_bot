@@ -15,7 +15,6 @@ import { useTransport, useTelegramBtns } from '../../hooks';
 import { OwnerValidationSchema } from '../Validation/Validation';
 import transport from '../../transport';
 import MaskedStyledInput from '../../components/MaskedInput';
-import { LoadingPage } from '../../components/LoadingPage';
 
 export const OwnerPage = () => {
   const { state, dispatch } = useContext(ContextApp);
@@ -58,10 +57,6 @@ export const OwnerPage = () => {
       payload: application,
     });
   });
-
-  if (state.isLoading) {
-    return <LoadingPage />;
-  }
 
   return (
     <>

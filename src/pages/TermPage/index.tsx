@@ -11,7 +11,6 @@ import { PageStatuses } from '../types';
 import { PaymentSchedule } from '../../components/PaymentSchedule';
 import { getMonthlyPaymentByTerm } from '../../utils';
 import transport from '../../transport';
-import { LoadingPage } from '../../components/LoadingPage';
 
 export const TermPage = () => {
   const { state, dispatch } = useContext(ContextApp);
@@ -67,10 +66,6 @@ export const TermPage = () => {
   const handleCloseSchedule = () => {
     setOpenSchedule(false);
   };
-
-  if (state.isLoading) {
-    return <LoadingPage />;
-  }
 
   return (
     <div>
