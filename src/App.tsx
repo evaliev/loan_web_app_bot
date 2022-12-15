@@ -13,7 +13,7 @@ import { initialState } from './state/initialState';
 import { reducer } from './state/reducer';
 import { IndiDataPage } from './pages/IndiData';
 import { telegram } from './telegram';
-import { Loader } from './components/Loader';
+import { LoadingPage } from './components/LoadingPage';
 
 const App = () => {
   const { state } = useContext(ContextApp);
@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <div className={styles.app}>
-      {state.isLoading ? <Loader /> : renderPage()}
+      {state.isLoading ? <LoadingPage /> : renderPage()}
     </div>
   );
 };

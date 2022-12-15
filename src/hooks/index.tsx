@@ -55,7 +55,7 @@ export const useTransport = (requestCallback: () => Promise<void>) => {
         payload: true,
       });
 
-      Promise.all([delay(), requestCallback()]).finally(() => {
+      Promise.allSettled([delay(), requestCallback()]).finally(() => {
         dispatch({
           type: ActionTypes.SET_IS_LOADING,
           payload: false,
