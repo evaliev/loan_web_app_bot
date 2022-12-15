@@ -4,6 +4,7 @@ import { TelegramBtnsProps } from '../pages/types';
 import { ContextApp } from '../state/context';
 import { ActionTypes } from '../state/types';
 import { telegram } from '../telegram';
+import { delay } from '../utils';
 
 export const useTelegramBtns = (
   {
@@ -54,7 +55,7 @@ export const useTransport = (requestCallback: () => Promise<void>) => {
         payload: true,
       });
 
-      requestCallback().finally(() => {
+      Promise.allSettled([delay(), requestCallback()]).finally(() => {
         dispatch({
           type: ActionTypes.SET_IS_LOADING,
           payload: false,

@@ -13,6 +13,7 @@ import { initialState } from './state/initialState';
 import { reducer } from './state/reducer';
 import { IndiDataPage } from './pages/IndiData';
 import { telegram } from './telegram';
+import { LoadingPage } from './components/LoadingPage';
 
 const App = () => {
   const { state } = useContext(ContextApp);
@@ -40,7 +41,12 @@ const App = () => {
         return <LoginPage />;
     }
   };
-  return <div className={styles.app}>{renderPage()}</div>;
+
+  return (
+    <div className={styles.app}>
+      {state.isLoading ? <LoadingPage /> : renderPage()}
+    </div>
+  );
 };
 
 const WrappedApp = () => {

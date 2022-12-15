@@ -10,7 +10,6 @@ import { PageStatuses } from '../types';
 import { ContextApp } from '../../state/context';
 import transport from '../../transport';
 import MaskedStyledInput from '../../components/MaskedInput';
-import { LoadingPage } from '../../components/LoadingPage';
 
 export const IndiDataPage = () => {
   const { state, dispatch } = useContext(ContextApp);
@@ -52,10 +51,6 @@ export const IndiDataPage = () => {
       payload: application,
     });
   });
-
-  if (state.isLoading) {
-    return <LoadingPage />;
-  }
 
   return (
     <div className={styles.page}>
