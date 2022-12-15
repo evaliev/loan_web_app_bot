@@ -13,9 +13,11 @@ import transport from '../../transport';
 
 export const LoginPage = () => {
   const { state, dispatch } = useContext(ContextApp);
-  const [isValid, setIsValid] = useState(false);
 
-  const [captchaToken, setCaptchaToken] = useState(null);
+  const [isInnValid, setIsInnValid] = useState(false);
+  const [isReCaptchaValid, setIsReCaptchaValid] = useState(false);
+
+  const [reCaptchaToken, setReCaptchaToken] = useState<string | null>(null);
   const captchaRef = useRef(null);
 
   useTelegramBtns(
@@ -29,10 +31,10 @@ export const LoginPage = () => {
         telegram.close();
       },
       params: {
-        is_visible: isValid,
+        is_visible: isInnValid && isReCaptchaValid,
       },
     },
-    [isValid],
+    [isInnValid, isReCaptchaValid],
   );
 
   useEffect(() => {
@@ -51,6 +53,7 @@ export const LoginPage = () => {
     const application = await transport.logIn({
       INN: state.INN?.toString() || '',
       chatId: state.chatId,
+      reCaptchaToken,
     });
 
     dispatch({
@@ -63,16 +66,22 @@ export const LoginPage = () => {
     (value: number) => {
       dispatch({ type: ActionTypes.CHANGE_INN, payload: value });
       if (String(value).length === INN_LENGTH) {
-        setIsValid(true);
+        setIsInnValid(true);
         return;
       }
-      setIsValid(false);
+      setIsInnValid(false);
     },
     [dispatch],
   );
 
-  const onChangeCaptcha = (value: any) => {
-    console.log('Captcha value:', value);
+  const onChangeReCaptchaToken = (token: string | null) => {
+    setReCaptchaToken(token);
+    setIsReCaptchaValid(true);
+  };
+
+  const onExpiredReCaptchaToken = () => {
+    setReCaptchaToken(null);
+    setIsReCaptchaValid(false);
   };
 
   return (
@@ -97,7 +106,8 @@ export const LoginPage = () => {
         <ReCAPTCHA
           sitekey={process.env.REACT_APP_SITE_KEY!}
           ref={captchaRef}
-          onChange={onChangeCaptcha}
+          onChange={onChangeReCaptchaToken}
+          onExpired={onExpiredReCaptchaToken}
           theme="light"
           size="normal"
           badge="inline"
@@ -114,6 +124,7 @@ export const LoginPage = () => {
             width: 200,
             height: 50,
           }}
+          disabled={!(isInnValid && isReCaptchaValid)}
           onClick={initLogInRequest}
         >
           Войти

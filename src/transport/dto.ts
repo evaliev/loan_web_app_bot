@@ -3,6 +3,7 @@ import { PageStatuses } from '../pages/types';
 export interface AuthDto {
   INN: string;
   chatId: string;
+  reCaptchaToken: string | null;
 }
 
 export interface ConditionsDto {
