@@ -3,9 +3,9 @@ import { getMonthlyPaymentByTerm } from '../utils';
 import { Conditions, IndiInfo, OwnerInfo, State } from './types';
 
 export const initialConditions: Conditions = {
-  amount: 400000,
-  term: 12,
-  monthlyPayment: getMonthlyPaymentByTerm(400000, 12),
+  amount: 1000000,
+  term: 36,
+  monthlyPayment: getMonthlyPaymentByTerm(1000000, 36),
 };
 
 export const initialOwnerInfo: OwnerInfo = {

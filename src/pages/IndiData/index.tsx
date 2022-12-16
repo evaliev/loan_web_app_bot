@@ -1,7 +1,7 @@
 import { Form, Formik, FormikProps } from 'formik';
 import { useContext, useEffect, useRef } from 'react';
 
-import styles from './styles.module.scss';
+import styles from '../formCard.module.scss';
 import FormInput from '../../components/Form/FormInput/FormInput';
 import { IndiValidationSchema } from '../Validation/Validation';
 import { useTransport, useTelegramBtns } from '../../hooks';
@@ -54,7 +54,7 @@ export const IndiDataPage = () => {
 
   return (
     <>
-      <div className={styles.cardHeader}>Данные организации</div>
+      <div className={styles.cardTitle}>Данные организации</div>
       <div className={styles.card}>
         <Formik
           initialValues={state.indiInfo}
@@ -74,8 +74,13 @@ export const IndiDataPage = () => {
 
             return (
               <Form>
-                <FormInput label="Наименование" type="input" name="name" />
-                <FormInput label="ИНН" type="input" name="INN" />
+                <FormInput
+                  label="Наименование"
+                  type="input"
+                  name="name"
+                  disabled
+                />
+                <FormInput label="ИНН" type="input" name="INN" disabled />
                 <FormInput label="Адрес" type="input" name="address" />
                 <MaskedStyledInput
                   mask="+{7} (000) 000-00-00"

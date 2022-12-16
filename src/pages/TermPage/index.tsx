@@ -78,17 +78,17 @@ export const TermPage = () => {
         <InputRange
           value={state.conditions.amount}
           min={100_000}
-          max={5_000_000}
+          max={10_000_000}
           formatAmount
           increaseStep={100_000}
           decreaseStep={100_000}
-          label="Сумма — до 5 млн ₽"
+          label="Сумма — до 10 млн ₽"
           withControls
           changeHandler={changeAmount}
         />
         <InputRange
           value={state.conditions.term}
-          min={1}
+          min={12}
           max={36}
           increaseStep={1}
           decreaseStep={1}
@@ -128,7 +128,7 @@ export const TermPage = () => {
         />
       </div>
       <div className={styles.footer}>
-        <p className={styles.title}>Ставка по кредиту от 11,5 %</p>
+        <p className={styles.title}>Ставка по кредиту 11,5 %</p>
         <p className={styles.subTitle}>
           Предварительный{' '}
           <span onClick={handleOpenSchedule}>график платежей</span>

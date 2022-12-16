@@ -2,17 +2,12 @@ import * as Yup from 'yup';
 
 const DEFAULT_ERROR_REQUIRED = 'Обязательное поле';
 const ERROR_FORMAT = 'Не соответствует формату';
-const LATE_DATE = 'Дата должна быть не позднее текущей';
-const EARLY_DATE = 'Дата должна быть не ранее 01.01.1900';
-const INVALID_ISSUE_OR_BIRTH_DATE =
-  'Проверьте корректность даты рождения и даты выдачи паспорта';
 export const REG_ADDRESS_ERROR_REQUIRED =
   'Необходимо указать адрес регистрации';
 
 const PHONE_NUMBER_MATCH = /[+]7.\(\d{3}\).\d{3}-\d{2}-\d{2}/;
 const DOC_SERIES_AND_NUMBER_MATCH =
   /^(?!00|02|06|13|16|21|23|31)[0-9]{4}(\s|)[0-9]{6}$/;
-const DOC_DEPARTMENT_CODE_MATCH = /^(?!(\d)\1{5})\d{6}$/;
 const VALIDATE_NAME = /^[А-Яа-яЁё -]+$/;
 const VALIDATE_ISSUEDBY = /^[А-Яа-яЁё]+([А-Яа-я0-9 .Ёё№'-]+[А-Яа-яЁё0-9]+)*$/;
 const VALIDATE_PLACE = /^[А-Яа-яЁё]+(.+[А-Яа-яЁё0-9]+)*$/;

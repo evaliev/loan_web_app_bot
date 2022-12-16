@@ -111,7 +111,7 @@ export const DataPage = () => {
             label={'Ежемесячный платеж'}
             value={`${formatAmountDisplay(state.conditions.monthlyPayment)} ₽`}
           />
-          <DetailLine label={'Ставка от'} value={'11,5 %'} />
+          <DetailLine label={'Ставка'} value={'11,5 %'} />
         </div>
       </div>
       <div className={styles.buttonGroup}>
