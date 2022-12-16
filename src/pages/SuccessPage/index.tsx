@@ -28,11 +28,7 @@ export const SuccessPage = () => {
   useTelegramBtns({
     mainBtnTitle: 'Вернуться в чат',
     mainBtnHandler: () => {
-      telegram.sendData(
-        JSON.stringify({
-          applicationId: state.applicationId,
-        }),
-      );
+      telegram.close();
     },
     hasBackBtn: true,
     backBtnHandler: initGoBackRequest,
