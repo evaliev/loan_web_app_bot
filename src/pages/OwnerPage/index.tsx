@@ -6,7 +6,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/ru';
 import { Form, Formik, FormikProps } from 'formik';
 
-import styles from './styles.module.scss';
+import styles from '../formCard.module.scss';
 import { ActionTypes, OwnerInfo } from '../../state/types';
 import { PageStatuses } from '../types';
 import { ContextApp } from '../../state/context';
@@ -80,9 +80,19 @@ export const OwnerPage = () => {
             <Form>
               <h2 className={styles.cardTitle}>ФИО</h2>
               <div className={styles.card}>
-                <FormInput type="text" name="secondName" label="Фамилия" />
-                <FormInput type="input" name="firstName" label="Имя" />
-                <FormInput type="input" name="middleName" label="Отчество" />
+                <FormInput
+                  type="text"
+                  name="secondName"
+                  label="Фамилия"
+                  disabled
+                />
+                <FormInput type="input" name="firstName" label="Имя" disabled />
+                <FormInput
+                  type="input"
+                  name="middleName"
+                  label="Отчество"
+                  disabled
+                />
               </div>
               <br />
               <h2 className={styles.cardTitle}>Паспорт</h2>
@@ -124,6 +134,7 @@ export const OwnerPage = () => {
                         type="input"
                         name="docDate"
                         onKeyDown={(e) => e.preventDefault()}
+                        onFocus={(e) => e.target.blur()}
                         {...(params as React.InputHTMLAttributes<HTMLInputElement>)}
                         label="Дата выдачи"
                       />

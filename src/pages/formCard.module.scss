@@ -1,4 +1,4 @@
-@import '../../App.module.scss';
+@import '../App.module.scss';
 
 .whiteBox {
   background: #ffffff;
@@ -19,5 +19,5 @@
 }
 .card {
   @extend .whiteBox;
-  padding: 8px 0 8px 16px;
+  padding: 12px 0 12px 16px;
 }
