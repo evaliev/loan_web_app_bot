@@ -1,6 +1,8 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 
+import { Alert, Snackbar } from '@mui/material';
+
 import styles from './styles.module.scss';
 import InputRange from '../../components/InputRange';
 import { useTransport, useTelegramBtns } from '../../hooks';
@@ -13,6 +15,20 @@ import transport from '../../transport';
 
 export const LoginPage = () => {
   const { state, dispatch } = useContext(ContextApp);
+
+  const handleCloseInnError = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string,
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    dispatch({
+      type: ActionTypes.SET_NOTIFICATION,
+      payload: null,
+    });
+  };
 
   const [isInnValid, setIsInnValid] = useState(false);
   const [isReCaptchaValid, setIsReCaptchaValid] = useState(false);
@@ -50,16 +66,23 @@ export const LoginPage = () => {
   }, []);
 
   const initLogInRequest = useTransport(async () => {
-    const application = await transport.logIn({
-      INN: state.INN?.toString() || '',
-      chatId: state.chatId,
-      reCaptchaToken,
-    });
+    try {
+      const application = await transport.logIn({
+        INN: state.INN?.toString() || '',
+        chatId: state.chatId,
+        reCaptchaToken,
+      });
 
-    dispatch({
-      type: ActionTypes.SET_APPLICATION_DATA,
-      payload: application,
-    });
+      dispatch({
+        type: ActionTypes.SET_APPLICATION_DATA,
+        payload: application,
+      });
+    } catch (e) {
+      dispatch({
+        type: ActionTypes.SET_NOTIFICATION,
+        payload: { status: 'error', text: 'Такой ИНН не существует!' },
+      });
+    }
   });
 
   const changeINN = useCallback(
@@ -130,6 +153,15 @@ export const LoginPage = () => {
           Войти
         </button>
       )}
+      <Snackbar
+        open={!!state.notification}
+        autoHideDuration={3000}
+        onClose={handleCloseInnError}
+      >
+        <Alert severity="error" sx={{ width: '100%' }}>
+          {state?.notification?.text}
+        </Alert>
+      </Snackbar>
     </>
   );
 };
