@@ -53,7 +53,7 @@ export const IndiDataPage = () => {
   });
 
   return (
-    <div className={styles.page}>
+    <>
       <div className={styles.cardHeader}>Данные организации</div>
       <div className={styles.card}>
         <Formik
@@ -118,6 +118,6 @@ export const IndiDataPage = () => {
           </button>
         </>
       )}
-    </div>
+    </>
   );
 };
