@@ -1,3 +1,5 @@
+import { AlertColor } from '@mui/material';
+
 import { PageStatuses } from '../pages/types';
 
 export interface Conditions {
@@ -33,6 +35,7 @@ export interface State {
   conditions: Conditions;
   ownerInfo: OwnerInfo;
   indiInfo: IndiInfo;
+  notification: { status: AlertColor | undefined; text: string } | null;
 }
 
 export interface Action {
@@ -52,4 +55,5 @@ export enum ActionTypes {
   AMOUNT_CHANGE = 'AMOUNT_CHANGE',
   TERM_CHANGE = 'TERM_CHANGE',
   MONTHLY_PAYMENT_CHANGE = 'MONTHLY_PAYMENT_CHANGE',
+  SET_NOTIFICATION = 'SET_NOTIFICATION',
 }

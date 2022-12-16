@@ -35,4 +35,5 @@ export const initialState: State = {
   conditions: initialConditions,
   ownerInfo: initialOwnerInfo,
   indiInfo: initialIndiInfo,
+  notification: null,
 };

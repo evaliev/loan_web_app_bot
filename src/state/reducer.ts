@@ -8,6 +8,11 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         isLoading: action.payload,
       };
+    case ActionTypes.SET_NOTIFICATION:
+      return {
+        ...state,
+        notification: action.payload,
+      };
     case ActionTypes.CHANGE_INN:
       return {
         ...state,
