@@ -89,4 +89,18 @@ export default {
 
     return response.status === 200 ? Promise.resolve() : Promise.reject();
   },
+
+  async submitApplication(applicationId: string) {
+    const response: Response = await fetch(
+      `${process.env.REACT_APP_API_URL}/application/${applicationId}/finish`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      },
+    );
+
+    return response.status === 200 ? Promise.resolve() : Promise.reject();
+  },
 };
