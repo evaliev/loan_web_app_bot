@@ -169,7 +169,9 @@ export const OwnerPage = () => {
               width: 200,
               height: 50,
             }}
-            onClick={initSubmitRequest}
+            onClick={() => {
+              formRef.current?.handleSubmit();
+            }}
           >
             Готово
           </button>

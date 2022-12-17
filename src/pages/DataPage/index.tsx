@@ -25,12 +25,7 @@ export const DataPage = () => {
   });
 
   const initSubmitRequest = useTransport(async () => {
-    transport.submitApplication(state.applicationId);
-
-    const application = await transport.changeApplicationStatus(
-      state.applicationId,
-      PageStatuses.SUCCESS_PAGE,
-    );
+    const application = await transport.submitApplication(state.applicationId);
 
     dispatch({
       type: ActionTypes.SET_APPLICATION_DATA,

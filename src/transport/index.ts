@@ -92,7 +92,7 @@ export default {
 
   async submitApplication(applicationId: string) {
     const response: Response = await fetch(
-      `${process.env.REACT_APP_API_URL}/application/${applicationId}/finish`,
+      `${process.env.REACT_APP_API_URL}/application/${applicationId}/submit`,
       {
         method: 'POST',
         headers: {
@@ -101,6 +101,10 @@ export default {
       },
     );
 
-    return response.status === 200 ? Promise.resolve() : Promise.reject();
+    if (response.status !== 200) {
+      return Promise.reject();
+    }
+
+    return await response.json();
   },
 };
