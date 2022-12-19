@@ -1,6 +1,10 @@
 import { PageStatuses } from '../pages/types';
 
-export interface AuthDto {
+export interface LoginDto {
+  chatId: string;
+}
+
+export interface RegistryDto {
   INN: string;
   chatId: string;
   reCaptchaToken: string | null;

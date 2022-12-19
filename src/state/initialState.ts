@@ -1,4 +1,5 @@
 import { PageStatuses } from '../pages/types';
+import { telegram } from '../telegram';
 import { getMonthlyPaymentByTerm } from '../utils';
 import { Conditions, IndiInfo, OwnerInfo, State } from './types';
 
@@ -29,7 +30,11 @@ export const initialIndiInfo: IndiInfo = {
 export const initialState: State = {
   isLoading: false,
   INN: null,
-  chatId: '',
+  chatId: String(
+    telegram.initDataUnsafe.user?.id ||
+      process.env.REACT_APP_CHAT_ID ||
+      '0000000001',
+  ),
   applicationId: '',
   status: PageStatuses.LOGIN_PAGE,
   conditions: initialConditions,

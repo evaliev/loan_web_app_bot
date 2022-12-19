@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { Alert, Snackbar } from '@mui/material';
 
@@ -25,7 +25,7 @@ export const LoginPage = () => {
     {
       mainBtnTitle: 'Войти',
       mainBtnHandler: () => {
-        initLogInRequest();
+        initRegistryRequest();
       },
       hasBackBtn: true,
       backBtnHandler: () => {
@@ -38,21 +38,9 @@ export const LoginPage = () => {
     [isInnValid, isReCaptchaValid],
   );
 
-  useEffect(() => {
-    const chatId =
-      telegram.initDataUnsafe.user?.id.toString() || // бот в проде
-      process.env.REACT_APP_CHAT_ID || // статика в проде, либо dev
-      '0000000001'; // что-то идет совсем не так
-
-    dispatch({
-      type: ActionTypes.SET_CHAT_ID,
-      payload: chatId,
-    });
-  }, []);
-
-  const initLogInRequest = useTransport(async () => {
+  const initRegistryRequest = useTransport(async () => {
     try {
-      const application = await transport.logIn({
+      const application = await transport.registry({
         INN: state.INN?.toString() || '',
         chatId: state.chatId,
         reCaptchaToken,
@@ -158,7 +146,7 @@ export const LoginPage = () => {
             height: 50,
           }}
           disabled={!(isInnValid && isReCaptchaValid)}
-          onClick={initLogInRequest}
+          onClick={initRegistryRequest}
         >
           Войти
         </button>
