@@ -40,7 +40,7 @@ export const LoginPage = () => {
 
   useEffect(() => {
     const chatId =
-      telegram.initDataUnsafe.user?.id || // бот в проде
+      telegram.initDataUnsafe.user?.id.toString() || // бот в проде
       process.env.REACT_APP_CHAT_ID || // статика в проде, либо dev
       '0000000001'; // что-то идет совсем не так
 
