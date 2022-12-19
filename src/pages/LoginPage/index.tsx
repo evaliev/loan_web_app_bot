@@ -1,6 +1,5 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
-
 import { Alert, Snackbar } from '@mui/material';
 
 import styles from './styles.module.scss';
@@ -15,20 +14,6 @@ import transport from '../../transport';
 
 export const LoginPage = () => {
   const { state, dispatch } = useContext(ContextApp);
-
-  const handleCloseInnError = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string,
-  ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    dispatch({
-      type: ActionTypes.SET_NOTIFICATION,
-      payload: null,
-    });
-  };
 
   const [isInnValid, setIsInnValid] = useState(false);
   const [isReCaptchaValid, setIsReCaptchaValid] = useState(false);
@@ -55,9 +40,9 @@ export const LoginPage = () => {
 
   useEffect(() => {
     const chatId =
-      process.env.NODE_ENV === 'production'
-        ? String(telegram.initDataUnsafe.user.id)
-        : '001';
+      telegram.initDataUnsafe.user?.id || // бот в проде
+      process.env.REACT_APP_CHAT_ID || // статика в проде, либо dev
+      '0000000001'; // что-то идет совсем не так
 
     dispatch({
       type: ActionTypes.SET_CHAT_ID,
@@ -77,10 +62,12 @@ export const LoginPage = () => {
         type: ActionTypes.SET_APPLICATION_DATA,
         payload: application,
       });
-    } catch (e) {
+    } catch (_err) {
+      const err = _err as Error;
+
       dispatch({
         type: ActionTypes.SET_NOTIFICATION,
-        payload: { status: 'error', text: 'Такой ИНН не существует!' },
+        payload: { status: 'error', text: err.message },
       });
     }
   });
@@ -105,6 +92,20 @@ export const LoginPage = () => {
   const onExpiredReCaptchaToken = () => {
     setReCaptchaToken(null);
     setIsReCaptchaValid(false);
+  };
+
+  const handleCloseInnError = (
+    _event?: React.SyntheticEvent | Event,
+    reason?: string,
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    dispatch({
+      type: ActionTypes.SET_NOTIFICATION,
+      payload: null,
+    });
   };
 
   return (
@@ -136,6 +137,15 @@ export const LoginPage = () => {
           badge="inline"
         />
       </div>
+      <Snackbar
+        open={!!state.notification}
+        autoHideDuration={3000}
+        onClose={handleCloseInnError}
+      >
+        <Alert severity="error" sx={{ width: '100%' }}>
+          {state?.notification?.text}
+        </Alert>
+      </Snackbar>
 
       {/* DebugBar */}
       {process.env.NODE_ENV === 'development' && (
@@ -153,15 +163,6 @@ export const LoginPage = () => {
           Войти
         </button>
       )}
-      <Snackbar
-        open={!!state.notification}
-        autoHideDuration={3000}
-        onClose={handleCloseInnError}
-      >
-        <Alert severity="error" sx={{ width: '100%' }}>
-          {state?.notification?.text}
-        </Alert>
-      </Snackbar>
     </>
   );
 };
