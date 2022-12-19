@@ -151,3 +151,7 @@ export const delay = (ms = 500): Promise<void> => {
     }, ms);
   });
 };
+
+export const getIsAllValuesFilled = (obj: object) => {
+  return Object.values(obj).every((value) => Boolean(value));
+};

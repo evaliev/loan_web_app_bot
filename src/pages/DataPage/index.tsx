@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 
 import styles from './styles.module.scss';
 import { DetailLine } from '../../components/DetailLine';
@@ -7,22 +7,37 @@ import { useTransport, useTelegramBtns } from '../../hooks';
 import { ActionTypes } from '../../state/types';
 import { PageStatuses } from '../types';
 import { ContextApp } from '../../state/context';
-import { formatAmountDisplay } from '../../utils';
+import { formatAmountDisplay, getIsAllValuesFilled } from '../../utils';
 import transport from '../../transport';
 
 export const DataPage = () => {
   const { state, dispatch } = useContext(ContextApp);
 
-  useTelegramBtns({
-    mainBtnTitle: 'Отправить заявку',
-    mainBtnHandler: () => {
-      initSubmitRequest();
+  const indiInfoFilled = useMemo(
+    () => getIsAllValuesFilled(state.indiInfo),
+    [state.indiInfo],
+  );
+  const ownerInfoFilled = useMemo(
+    () => getIsAllValuesFilled(state.ownerInfo),
+    [state.ownerInfo],
+  );
+
+  useTelegramBtns(
+    {
+      mainBtnTitle: 'Отправить заявку',
+      mainBtnHandler: () => {
+        initSubmitRequest();
+      },
+      hasBackBtn: true,
+      backBtnHandler: () => {
+        initGoBackRequest();
+      },
+      params: {
+        is_visible: indiInfoFilled && ownerInfoFilled,
+      },
     },
-    hasBackBtn: true,
-    backBtnHandler: () => {
-      initGoBackRequest();
-    },
-  });
+    [indiInfoFilled, ownerInfoFilled],
+  );
 
   const initSubmitRequest = useTransport(async () => {
     const application = await transport.submitApplication(state.applicationId);
