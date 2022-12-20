@@ -18,11 +18,6 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         INN: action.payload,
       };
-    case ActionTypes.SET_CHAT_ID:
-      return {
-        ...state,
-        chatId: action.payload,
-      };
     case ActionTypes.CHANGE_STATUS:
       return {
         ...state,

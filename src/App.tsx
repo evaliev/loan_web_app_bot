@@ -14,13 +14,16 @@ import { reducer } from './state/reducer';
 import { IndiDataPage } from './pages/IndiData';
 import { telegram } from './telegram';
 import { LoadingPage } from './components/LoadingPage';
+import transport from './transport';
 
 const App = () => {
-  const { state } = useContext(ContextApp);
+  const { state, dispatch } = useContext(ContextApp);
 
   useEffect(() => {
     telegram.ready();
     telegram.expand();
+
+    transport.login({ chatId: state.chatId }, dispatch);
   }, []);
 
   const renderPage = () => {

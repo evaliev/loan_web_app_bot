@@ -1,16 +1,58 @@
+import { Dispatch } from 'react';
+
 import { PageStatuses } from '../pages/types';
-import { AuthDto, ConditionsDto, IndiInfoDto, OwnerInfoDto } from './dto';
+import { Action, ActionTypes } from '../state/types';
+import {
+  RegistryDto,
+  LoginDto,
+  ConditionsDto,
+  IndiInfoDto,
+  OwnerInfoDto,
+} from './dto';
 
 export default {
-  async logIn(authDto: AuthDto) {
+  async login(loginDto: LoginDto, dispatch: Dispatch<Action>) {
+    dispatch({ type: ActionTypes.SET_IS_LOADING, payload: true });
+
     const response: Response = await fetch(
-      `${process.env.REACT_APP_API_URL}/auth`,
+      `${process.env.REACT_APP_API_URL}/auth/login`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
         },
-        body: JSON.stringify(authDto),
+        body: JSON.stringify(loginDto),
+      },
+    );
+
+    if (response.status === 200) {
+      const application = await response.json();
+
+      dispatch({
+        type: ActionTypes.SET_APPLICATION_DATA,
+        payload: application,
+      });
+      dispatch({ type: ActionTypes.SET_IS_LOADING, payload: false });
+    }
+
+    if (response.status === 204) {
+      dispatch({
+        type: ActionTypes.CHANGE_STATUS,
+        payload: PageStatuses.LOGIN_PAGE,
+      });
+      dispatch({ type: ActionTypes.SET_IS_LOADING, payload: false });
+    }
+  },
+
+  async registry(registryDto: RegistryDto) {
+    const response: Response = await fetch(
+      `${process.env.REACT_APP_API_URL}/auth/registry`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify(registryDto),
       },
     );
 
